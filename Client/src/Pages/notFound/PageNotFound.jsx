@@ -4,11 +4,11 @@ import styles from "./PageNotFound.module.css";
 export default function PageNotFound() {
   return (
     <main className={styles.notfound}>
-      <h2> Página no encontrada!</h2>,
-      <p>
-        ¡Oops! Parece que te has desviado del camino. <br /> Para regresar
-        presion el botón
-      </p>
+      <div className={styles.img_NotFound}>
+        <img src="/400-status-code.png" alt="imagen de pagina no encontrada" />
+      </div>
+
+      <NavLink to="/home">Go Home!</NavLink>
     </main>
   );
 }

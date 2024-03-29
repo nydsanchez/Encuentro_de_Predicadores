@@ -39,7 +39,7 @@ const Menu = () => {
                 </NavLink>
               </li>
               <li className={styles.box_option}>
-                <NavLink to="/eventos" className={styles.submenu}>
+                <NavLink to="/ver-eventos" className={styles.submenu}>
                   Consultar Eventos
                 </NavLink>
               </li>
@@ -58,12 +58,12 @@ const Menu = () => {
           {expandedMenu === 2 && (
             <ul>
               <li className={styles.box_option}>
-                <NavLink to="/nueva-congregacion" className={styles.submenu}>
+                <NavLink to="/congregaciones" className={styles.submenu}>
                   Nueva Congregación
                 </NavLink>
               </li>
               <li className={styles.box_option}>
-                <NavLink to="/ver-congregaciones" className={styles.submenu}>
+                <NavLink to="/allchurch" className={styles.submenu}>
                   Ver Congregaciones
                 </NavLink>
               </li>
@@ -82,12 +82,12 @@ const Menu = () => {
           {expandedMenu === 3 && (
             <ul>
               <li className={styles.box_option}>
-                <NavLink to="/registro-ticket" className={styles.submenu}>
+                <NavLink to="/tickets" className={styles.submenu}>
                   Registro de Ticket
                 </NavLink>
               </li>
               <li className={styles.box_option}>
-                <NavLink to="/consultar-tickets" className={styles.submenu}>
+                <NavLink to="/tickets-status" className={styles.submenu}>
                   Consultar Tickets
                 </NavLink>
               </li>
@@ -106,7 +106,7 @@ const Menu = () => {
           {expandedMenu === 4 && (
             <ul>
               <li className={styles.box_option}>
-                <NavLink to="/agregar-personas" className={styles.submenu}>
+                <NavLink to="/participantes" className={styles.submenu}>
                   Agregar Personas
                 </NavLink>
               </li>
@@ -125,7 +125,7 @@ const Menu = () => {
           {expandedMenu === 5 && (
             <ul>
               <li className={styles.box_option}>
-                <NavLink to="/registro-asistencia" className={styles.submenu}>
+                <NavLink to="/asistencia" className={styles.submenu}>
                   Registro de Asistencia
                 </NavLink>
               </li>

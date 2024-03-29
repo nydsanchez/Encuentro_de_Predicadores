@@ -151,11 +151,12 @@ export default function Event() {
             ></textarea>
           </div>
         </div>
-
-        <button className={styles.btn_form}>Registrar</button>
-        <button className={styles.btn_form} onClick={handleChangeOnClick}>
-          Limpiar datos
-        </button>
+        <div className={styles.btn_container}>
+          <button className={styles.btn_form}>Registrar</button>
+          <button className={styles.btn_form} onClick={handleChangeOnClick}>
+            Limpiar datos
+          </button>
+        </div>
       </form>
 
       {error && showAlert(error)}

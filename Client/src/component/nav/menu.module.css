@@ -25,12 +25,12 @@
 
 .menu:hover,
 .submenu:hover {
-  background: #626262;
+  background: #45444479;
   border-radius: 0.3rem;
   color: #fff;
 }
 
-.menu a:link,
+.submenu:hover .menu a:link,
 .menu a:visited {
   text-decoration: none;
   color: inherit;
@@ -39,7 +39,7 @@
 .submenu:visited {
   display: block;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: var(--color-main);
   text-align: left;
   padding: 1.3rem;
