@@ -1,0 +1,21 @@
+.notfound {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3.2rem;
+  background-image: url("/34374.jpg");
+  background-size: cover;
+  background-position: top center;
+}
+
+.notfound h2 {
+  font-size: 6.4rem;
+}
+
+.notfound p {
+  color: inherit;
+  font-weight: bolder;
+  font-size: 3.2rem;
+  text-wrap: wrap;
+}

@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+:root {
+  --color-main: #004c9c;
+  --color-sec: #fff;
+  --color-gray: #efefef;
+  --bg-color-hover: #dce0e4;
+  --bg-color-active: #00346e;
+  --color-menu: #626262;
+  --color-text: #464646;
+  --color-title: #00285a;
+}
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background: var(--color-gray);
+  color: var(--color-text);
+  font-family: "Roboto", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  display: grid;
+  width: 100vw;
+  grid-template-areas:
+    "header header"
+    "nav  main";
+  grid-template-rows: 10rem 100vh;
+  grid-template-columns: 15% 85%;
+  text-align: center;
+  column-gap: 4.6rem;
+  overflow-x: hidden;
+}
+
+/*  HEADER SECTION  */
+.app > header {
+  grid-area: header;
+}
+
+/*  ASIDE MENU  */
+.app > nav {
+  grid-area: nav;
+  height: 100vh;
+}
+/* MAIN SECTION*/
+.app > main {
+  grid-area: main;
+  height: calc(100vh-12rem);
+}
