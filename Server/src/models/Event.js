@@ -63,7 +63,7 @@ module.exports = (sequelize) => {
         },
       },
       event_state: {
-        type: DataTypes.ENUM("abierto", "finalizado"),
+        type: DataTypes.ENUM("abierto", "finalizado", "cancelado"),
         defaultValue: "abierto",
       },
     },
