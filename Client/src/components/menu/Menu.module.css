@@ -1,0 +1,28 @@
+nav {
+  padding-left: 1rem;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+nav a:link,
+nav a:visited {
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+nav a:hover {
+  color: var(--bg-color-active);
+}
+.iconosMenu {
+  font-size: 2.2rem;
+}
+
+.bgItem:active {
+  display: block;
+  background-color: var(--bg-color-active);
+}
+.bgItem:hover {
+  background-color: var(--bg-color-hover);
+  width: 120%;
+}

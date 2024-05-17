@@ -27,17 +27,17 @@ module.exports = (sequelize) => {
           "Carazo",
           "Chinandega",
           "Chontales",
-          "Estelí",
+          "Esteli",
           "Granada",
           "Jinotega",
-          "León",
+          "Leon",
           "Madriz",
           "Managua",
           "Masaya",
           "Matagalpa",
           "Nueva Segovia",
           "Rivas",
-          "Río San Juan"
+          "Rio San Juan"
         ),
         allowNull: false,
         validate: {

@@ -35,29 +35,22 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { People, Tickets, Event, Attendance, Churches } = sequelize.models;
+const { People, Tickets, Attendances, Churches } = sequelize.models;
 
 // Aca vendrian las relaciones
 People.hasOne(Tickets);
 Tickets.belongsTo(People);
 
-Event.hasMany(Tickets);
-Tickets.belongsTo(Event);
-
-People.hasMany(Attendance);
-Attendance.belongsTo(People);
-
-Tickets.hasMany(Attendance);
-Attendance.belongsTo(Tickets);
+Tickets.hasOne(Attendances);
+Attendances.belongsTo(Tickets);
 
 Churches.hasMany(People);
 People.belongsTo(Churches);
 
 module.exports = {
-  Attendance,
+  Attendances,
   Churches,
   People,
-  Event,
   Tickets, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');
 };

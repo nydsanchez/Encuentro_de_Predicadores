@@ -1,0 +1,37 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.97);
+  height: 9.6rem;
+}
+
+.imgLogo {
+  width: 12rem;
+}
+
+.headerText h1 {
+  color: var(--color-title);
+  font-size: 2.8rem;
+  font-weight: bold;
+}
+
+.headerText > p {
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+}
+
+.btLink {
+  display: inline-block;
+  padding: 1rem 2.4rem;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  text-align: center;
+
+  color: var(--color-title);
+  border-radius: 6px;
+  border: 1px solid #004c9c;
+}

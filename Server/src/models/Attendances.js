@@ -3,17 +3,16 @@ const { DataTypes } = require("sequelize");
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define("Tickets", {
-    id_ticket: {
+  sequelize.define("Attendances", {
+    id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true,
+      autoIncrement: true,
     },
-
-    state_ticket: {
-      type: DataTypes.ENUM("reservado", "utilizado", "pagado"),
+    awarded: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: "reservado",
+      defaultValue: false,
     },
   });
 };
