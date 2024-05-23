@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addData } from "../../redux/actions";
-
-import validation from "../../assets/javascript/validation";
-import styles from "./form.module.css";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+
+import SelectChurch from "../select/selectChurch";
+//import validation from "../../assets/javascript/validation";
+import styles from "./peopleform.module.css";
 
 export default function People({ onClose, isModal }) {
   People.propTypes = {
@@ -20,23 +22,24 @@ export default function People({ onClose, isModal }) {
     genre: "",
     ChurchId: "",
   });
-  const [errors, setErrors] = useState({});
-  const [confirmClear, setConfirmClear] = useState(false);
+  // const [errors, setErrors] = useState({});
+  //const [confirmClear, setConfirmClear] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   //  const error = useSelector((state) => state.error);
   const loading = useSelector((state) => state.loading);
-
-  /*  useEffect(() => {
-    dispatch(getData("churches"));
-  }, [dispatch]); */
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewData({ ...newData, [name]: value });
 
-    const updatedErrors = validation({ ...newData, [name]: value });
-    setErrors(updatedErrors);
+    /*  const updatedErrors = validation({ ...newData, [name]: value });
+    setErrors(updatedErrors); */
+  };
+
+  const handleSelectChurchChange = (id) => {
+    setNewData({ ...newData, ChurchId: id });
   };
 
   function delete_formData() {
@@ -53,41 +56,28 @@ export default function People({ onClose, isModal }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addData("people", newData));
+    window.alert("Se ha guardado los datos exitosamente");
     if (isModal) {
       onClose(); // Cierra la modal al enviar el formulario
     }
+
     delete_formData();
   };
 
   function handleClearData() {
-    if (confirmClear) {
-      // Solo limpiar si la confirmación es verdadera
-      delete_formData();
-      setConfirmClear(false); // Restablecer la confirmación después de limpiar los datos
+    // showConfirmation();
+    if (window.confirm("¿Estás seguro de que quieres cerrar el registro?")) {
+      navigate("/home");
     }
-  }
-
-  function showConfirmation() {
-    if (confirmClear) {
-      return window.confirm("¿Estás seguro de que quieres limpiar los datos?");
-    }
-    return true; // Si la confirmación no se ha mostrado todavía, siempre regresa true
   }
 
   return (
     <main className={isModal ? styles.modalMain : ""}>
-      <h2 className={isModal ? styles.subtitleModal : styles.subtitle}>
-        Participantes
-      </h2>
       <div className={isModal ? styles.modalContent : styles.grid_container}>
         <div className={styles.grid_container_text}>
-          <h3>Registro de Participantes</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-            rerum odio maxime fuga nam voluptatum aspernatur adipisci quas
-            incidunt animi!
-          </p>
-          <form className={styles.formChurch} onSubmit={handleSubmit}>
+          <h3>Registro de Personas</h3>
+
+          <form className={styles.peopleform} onSubmit={handleSubmit}>
             <div>
               <label htmlFor="person_id">Número de cedula:</label>
               <input
@@ -97,11 +87,6 @@ export default function People({ onClose, isModal }) {
                 value={newData.person_id}
                 onChange={handleChange}
               />
-              {errors.e1 ? (
-                <p className={styles.error_msg}>{errors.e1}</p>
-              ) : (
-                <p>&nbsp;</p>
-              )}
             </div>
 
             <div>
@@ -113,11 +98,6 @@ export default function People({ onClose, isModal }) {
                 value={newData.name}
                 onChange={handleChange}
               />
-              {errors.e1 ? (
-                <p className={styles.error_msg}>{errors.e1}</p>
-              ) : (
-                <p>&nbsp;</p>
-              )}
             </div>
             <div>
               <label htmlFor="address">Dirección:</label>
@@ -128,11 +108,6 @@ export default function People({ onClose, isModal }) {
                 value={newData.address}
                 onChange={handleChange}
               />
-              {errors.e1 ? (
-                <p className={styles.error_msg}>{errors.e1}</p>
-              ) : (
-                <p>&nbsp;</p>
-              )}
             </div>
             <div>
               <label htmlFor="phone">No. Teléfono/celular:</label>
@@ -143,11 +118,6 @@ export default function People({ onClose, isModal }) {
                 value={newData.phone}
                 onChange={handleChange}
               />
-              {errors.e1 ? (
-                <p className={styles.error_msg}>{errors.e1}</p>
-              ) : (
-                <p>&nbsp;</p>
-              )}
             </div>
             <div>
               <label htmlFor="genre">Género:</label>
@@ -161,53 +131,40 @@ export default function People({ onClose, isModal }) {
                 <option value="Femenino">Femenino</option>
                 <option value="Masculino">Masculino</option>
               </select>
-              {errors.e1 ? (
-                <p className={styles.error_msg}>{errors.e1}</p>
-              ) : (
-                <p>&nbsp;</p>
-              )}
             </div>
             <div>
               <label htmlFor="ChurchId">Congregación:</label>
-
-              <select
-                name="ChurchId"
-                id="ChurdId"
-                value={newData.genre}
-                onChange={handleChange}
-              >
-                <option value="">Selecciona una opcion</option>
-                <option value="1">nada</option>
-              </select>
-
-              {errors.e1 ? (
-                <p className={styles.error_msg}>{errors.e1}</p>
-              ) : (
-                <p>&nbsp;</p>
-              )}
+              <SelectChurch
+                selectedChurchId={newData.ChurchId}
+                onChange={handleSelectChurchChange}
+              />
             </div>
-
-            <button
-              type="submit"
-              className={styles.btn_form}
-              disabled={loading}
-              onClick={onClose}
-            >
-              {isModal ? "Guardar y cerrar" : "Registrar"}
-            </button>
-            <button
-              type="button"
-              className={styles.btn_form}
-              onClick={() => {
-                if (showConfirmation()) {
-                  setConfirmClear(true);
+            <div className={styles.formButton}>
+              <button
+                type="submit"
+                className={styles.btn_form}
+                disabled={loading}
+                onClick={onClose}
+              >
+                {isModal ? (
+                  "Guardar y cerrar"
+                ) : (
+                  <>
+                    <i className="bi bi-floppy"></i> Guardar
+                  </>
+                )}
+              </button>
+              <button
+                type="button"
+                className={`${styles.btn_form} ${styles.btn_x}`}
+                onClick={() => {
                   handleClearData(); // Llama a handleClearData después de confirmar
-                }
-              }}
-              disabled={loading}
-            >
-              Limpiar datos
-            </button>
+                }}
+                disabled={loading}
+              >
+                <i className="bi bi-x-lg"></i> Cerrar
+              </button>
+            </div>
           </form>
         </div>
       </div>

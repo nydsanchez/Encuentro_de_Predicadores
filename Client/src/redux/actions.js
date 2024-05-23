@@ -5,7 +5,7 @@ import {
   GET_ALL_DATA,
   DATA_FAILURE,
   DATA_SUCCESS,
-} from "./actions_types";
+} from "./actions-types";
 
 const URL = "http://localhost:4000";
 

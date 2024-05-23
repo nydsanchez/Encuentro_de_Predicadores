@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <header className={`${styles.header} fixed-top w-100 bg-light`}>
       <div className={styles.imgLogoBox}>
-        <img className={styles.imgLogo} src="logo-v2.png" alt="logo" />
+        <img className={styles.imgLogo} src="/logo-v2.png" alt="logo" />
       </div>
       <div className={styles.headerText}>
         <h1 data-date={formattedDate}>Encuentro de Predicadores {year}</h1>

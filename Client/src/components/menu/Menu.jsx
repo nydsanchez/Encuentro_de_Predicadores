@@ -43,8 +43,8 @@ function Menu() {
 
             {activeMenu === "congregations" && (
               <Nav className="flex-column">
-                <NavLink to="/iglesia">Nueva Congregación</NavLink>
-                <NavLink to="/listado-iglesias">Ver Congregaciones</NavLink>
+                <NavLink to="/iglesia/nuevo">Nueva Congregación</NavLink>
+                <NavLink to="/iglesia/listado">Ver Congregaciones</NavLink>
               </Nav>
             )}
 
@@ -57,7 +57,7 @@ function Menu() {
             {activeMenu === "people" && (
               <Nav className="flex-column">
                 <NavLink to="/personas">Registro de Personas</NavLink>
-                <NavLink to="/listado-de-personas">Consultar Personas </NavLink>
+                <NavLink to="/personas/listado">Consultar Personas </NavLink>
               </Nav>
             )}
 
@@ -71,8 +71,8 @@ function Menu() {
             </Nav.Link>
             {activeMenu === "ticket" && (
               <Nav className="flex-column">
-                <NavLink to="/ticket">Registro de tickets</NavLink>
-                <NavLink to="/listado-de-tickets">Consultar tickets </NavLink>
+                <NavLink to="/tickets">Registro de tickets</NavLink>
+                <NavLink to="/tickets/listado">Consultar tickets </NavLink>
               </Nav>
             )}
 

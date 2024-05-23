@@ -19,9 +19,9 @@ export default function Ticket() {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
   return (
     <main>
-      <h2 className={styles.subtitle}>Tickets</h2>
       <div className={styles.grid_container}>
         <div className={styles.grid_container_text}>
           <h3>Registro de Tickets</h3>
@@ -33,23 +33,8 @@ export default function Ticket() {
 
           <form className={styles.formChurch} onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="id_event">Evento:</label>
-              <select name="id_event" id="id_event">
-                <option value="">Seleccione el evento</option>
-                <option value="01">Reservado</option>
-                <option value="02">Comprado</option>
-                <option value="03">Utilizado</option>
-              </select>
-            </div>
-
-            <div>
               <label htmlFor="id_ticket">Número de ticket:</label>
               <input type="text" name="id_ticket" id="id_ticket" />
-            </div>
-
-            <div>
-              <label htmlFor="vendedor">Vendedor:</label>
-              <input type="text" name="vendedor" id="vendedor" />
             </div>
 
             <div>
@@ -76,9 +61,16 @@ export default function Ticket() {
                 Agregar datos de una persona
               </button>
             </div>
-
-            <button className={styles.btn_form}>Registrar Tickets</button>
-            <button className={styles.btn_form}>Limpiar datos</button>
+            <div>
+              <button className={styles.btn_form}>
+                {" "}
+                <i className="bi bi-floppy"></i>Guardar
+              </button>
+              <button className={styles.btn_form}>
+                {" "}
+                <i className="bi bi-x-lg"></i>cerrar
+              </button>
+            </div>
           </form>
           {showPersonaModal && (
             <div className={styles.modalMain}>

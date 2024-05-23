@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addData } from "../../redux/actions";
 
-import validation from "../../assets/javascript/validation";
+import validation from "../../js/validation";
 import styles from "./form.module.css";
 
 export default function Church() {
@@ -12,15 +12,14 @@ export default function Church() {
     address: "",
     phone: "",
   });
+
   const [errors, setErrors] = useState({});
-
   const dispatch = useDispatch();
-
   const loading = useSelector((state) => state.loading);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewData({ ...newData, [name]: value });
+    setNewData({ ...newData, [name]: value.toUpperCase() });
 
     const updatedErrors = validation({ ...newData, [name]: value });
     setErrors(updatedErrors);
@@ -38,6 +37,7 @@ export default function Church() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addData("churches", newData));
+    window.alert("Se ha registrado el ticket exitosamente");
     delete_formData();
   };
 
@@ -47,7 +47,6 @@ export default function Church() {
 
   return (
     <main>
-      <h2 className={styles.subtitle}>Congregaciones</h2>
       <div className={styles.grid_container_2col}>
         <div className={styles.grid_container_text}>
           <h3>Registro de Congregaciones</h3>
@@ -136,17 +135,29 @@ export default function Church() {
                 <p>&nbsp;</p>
               )}
             </div>
-
-            <button className={styles.btn_form} disabled={loading}>
-              {loading ? "Enviando..." : "Registrar"}
-            </button>
-            <button
-              className={styles.btn_form}
-              onClick={handleClearData}
-              disabled={loading}
-            >
-              Limpiar datos
-            </button>
+            <div>
+              <button
+                type="submit"
+                className={styles.btn_form}
+                disabled={loading}
+              >
+                {loading ? (
+                  "Enviando..."
+                ) : (
+                  <>
+                    <i className="bi bi-floppy"></i> Guardar
+                  </>
+                )}
+              </button>
+              <button
+                type="button"
+                className={styles.btn_form}
+                onClick={handleClearData}
+                disabled={loading}
+              >
+                <i className="bi bi-x-lg"></i> Cerrar
+              </button>
+            </div>
           </form>
         </div>
         <div
