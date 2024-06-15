@@ -19,7 +19,7 @@ export default function Church() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewData({ ...newData, [name]: value.toUpperCase() });
+    setNewData({ ...newData, [name]: value });
 
     const updatedErrors = validation({ ...newData, [name]: value });
     setErrors(updatedErrors);
@@ -37,7 +37,7 @@ export default function Church() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addData("churches", newData));
-    window.alert("Se ha registrado el ticket exitosamente");
+    window.alert("Se ha registrado la congregación exitosamente");
     delete_formData();
   };
 
@@ -97,12 +97,7 @@ export default function Church() {
                 <option value="Rio San Juan">Río San Juan</option>
                 <option value="RACCN">Región Autonoma del Caribe Norte</option>
                 <option value="RACCS">Región Autonoma del Caribe Sur</option>
-              </select>{" "}
-              {errors.e1 ? (
-                <p className={styles.error_msg}>{errors.e1}</p>
-              ) : (
-                <p>&nbsp;</p>
-              )}
+              </select>
             </div>
             <div className={styles.miembros_info_personal}>
               <label htmlFor="address">Dirección de la congregación</label>
@@ -135,7 +130,7 @@ export default function Church() {
                 <p>&nbsp;</p>
               )}
             </div>
-            <div>
+            <div className={styles.formButton}>
               <button
                 type="submit"
                 className={styles.btn_form}
@@ -151,7 +146,7 @@ export default function Church() {
               </button>
               <button
                 type="button"
-                className={styles.btn_form}
+                className={`${styles.btn_form} ${styles.btn_x}`}
                 onClick={handleClearData}
                 disabled={loading}
               >
