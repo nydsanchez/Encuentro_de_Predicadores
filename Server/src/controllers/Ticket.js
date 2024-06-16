@@ -8,13 +8,13 @@ const postTicket = async (req, res) => {
       return res.status(400).json({ error: "Faltan datos" });
     }
 
-    const ticket = await Tickets.findByPk(id_ticket);
+    let ticket = await Tickets.findByPk(id_ticket);
 
     if (!ticket) {
       ticket = await Tickets.create({
         id_ticket,
         state_ticket,
-        personId,
+        PersonId: personId,
       });
     }
 
@@ -71,8 +71,8 @@ const updateTicket = async (req, res) => {
       updatedData.state_ticket = state_ticket;
     }
 
-    if (personId && personId !== ticket.personId) {
-      updatedData.personId = personId;
+    if (personId && personId !== ticket.PersonId) {
+      updatedData.PersonId = personId;
     }
 
     await ticket.update(updatedData);

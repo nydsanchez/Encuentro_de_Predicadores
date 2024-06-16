@@ -17,6 +17,8 @@ router.post("/tickets", postTicket);
 router.post("/churches", postChurch);
 router.post("/people", postPeople);
 
+router.get("/people", getPeople);
+router.get("/tickets", getTickets);
 router.get("/churches", getChurches);
 
 module.exports = router;

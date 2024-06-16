@@ -8,6 +8,7 @@ import styles from "./tablas.module.css";
 function TicketTable() {
   const dispatch = useDispatch();
   const tickets = useSelector((state) => state.data.tickets);
+  const people = useSelector((state) => state.data.people);
 
   const handleEdit = (index) => {
     // Lógica para editar el elemento con el índice proporcionado
@@ -26,7 +27,14 @@ function TicketTable() {
   console.log(tickets);
   useEffect(() => {
     dispatch(getAllData("tickets"));
+    dispatch(getAllData("people"));
   }, [dispatch]);
+
+  const getPersonName = (personId) => {
+    const person = people.find((p) => p.id === personId);
+    return person ? person.name : "Desconocido";
+  };
+
   return (
     <main>
       <h2 className={styles.subtitle}>Listado de Tickets</h2>
@@ -36,6 +44,7 @@ function TicketTable() {
             <tr>
               <th scope="col">No. Ticket</th>
               <th scope="col">Estado</th>
+              <th scope="col">Asignado a</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
@@ -44,6 +53,7 @@ function TicketTable() {
               <tr key={index}>
                 <td>{tkt.id_ticket}</td>
                 <td>{tkt.state_ticket}</td>
+                <td>{getPersonName(tkt.PersonId)}</td>
 
                 <td className={styles.actions}>
                   <button onClick={() => handleEdit(index)}>

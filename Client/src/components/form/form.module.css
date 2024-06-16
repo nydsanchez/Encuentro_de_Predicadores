@@ -142,7 +142,8 @@
   font-family: inherit;
 }
 
-.formButton > .btn_form {
+.formButton > .btn_form,
+.modal_btn {
   background: #004b9c85;
   color: #fff;
   font-size: 1.5rem;

@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addData } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
+
 import PropTypes from "prop-types";
 
+import InputMask from "react-input-mask";
 import SelectChurch from "../select/selectChurch";
 //import validation from "../../assets/javascript/validation";
 import styles from "./peopleform.module.css";
@@ -17,6 +19,7 @@ export default function People({ onClose, isModal }) {
   const [newData, setNewData] = useState({
     person_id: "",
     name: "",
+    state: "",
     address: "",
     phone: "",
     genre: "",
@@ -32,10 +35,14 @@ export default function People({ onClose, isModal }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewData({ ...newData, [name]: value });
-
-    /*  const updatedErrors = validation({ ...newData, [name]: value });
-    setErrors(updatedErrors); */
+    // Convert the last character to uppercase if it is a letter
+    if (name === "person_id" && value.length === 17) {
+      const lastChar = value.charAt(16).toUpperCase();
+      const newValue = value.slice(0, 16) + lastChar;
+      setNewData({ ...newData, [name]: newValue });
+    } else {
+      setNewData({ ...newData, [name]: value });
+    }
   };
 
   const handleSelectChurchChange = (id) => {
@@ -46,6 +53,7 @@ export default function People({ onClose, isModal }) {
     setNewData({
       person_id: "",
       name: "",
+      state: "",
       address: "",
       phone: "",
       genre: "",
@@ -80,13 +88,22 @@ export default function People({ onClose, isModal }) {
           <form className={styles.peopleform} onSubmit={handleSubmit}>
             <div>
               <label htmlFor="person_id">Número de cedula:</label>
-              <input
-                type="text"
-                name="person_id"
-                id="person_id"
+
+              <InputMask
+                mask="999-999999-9999a"
+                maskChar=" " // Configura la máscara
                 value={newData.person_id}
                 onChange={handleChange}
-              />
+              >
+                {(inputProps) => (
+                  <input
+                    {...inputProps}
+                    type="text"
+                    name="person_id"
+                    id="person_id"
+                  />
+                )}
+              </InputMask>
             </div>
 
             <div>
@@ -108,7 +125,7 @@ export default function People({ onClose, isModal }) {
                 onChange={handleChange}
               >
                 <option value="">Seleccione una opción</option>
-                <option value="Boaco">Managua</option>
+                <option value="Boaco">Boaco</option>
                 <option value="Carazo">Carazo</option>
                 <option value="Chinandega">Chinandega</option>
                 <option value="Chontales">Chontales</option>
@@ -139,13 +156,16 @@ export default function People({ onClose, isModal }) {
             </div>
             <div>
               <label htmlFor="phone">No. Teléfono/celular:</label>
-              <input
-                type="text"
-                name="phone"
-                id="phone"
+
+              <InputMask
+                mask="(999)-9999-9999"
                 value={newData.phone}
                 onChange={handleChange}
-              />
+              >
+                {(inputProps) => (
+                  <input {...inputProps} type="text" name="phone" id="phone" />
+                )}
+              </InputMask>
             </div>
             <div>
               <label htmlFor="genre">Género:</label>

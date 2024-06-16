@@ -1,4 +1,5 @@
 const { People } = require("../db");
+const moment = require("moment");
 
 const postPeople = async (req, res) => {
   try {
@@ -11,12 +12,19 @@ const postPeople = async (req, res) => {
       return res.status(400).json({ error: "Faltan datos" });
     }
 
-    const formattedBirthDate = `20${person_id.substring(
-      7,
-      9
-    )}-${person_id.substring(5, 7)}-${person_id.substring(3, 5)}`;
+    const formattedBirthDate = `${person_id.substring(
+      4,
+      6
+    )}-${person_id.substring(6, 8)}-${person_id.substring(8, 10)}`;
+    const birthDate = moment(formattedBirthDate, "DD-MM-YY");
 
-    const person = await People.findByPk(person_id);
+    if (!birthDate.isValid()) {
+      throw new Error("Invalid birth date");
+    }
+
+    const isoBirthDate = birthDate.format("YYYY-MM-DD");
+
+    let person = await People.findByPk(person_id);
 
     if (!person) {
       person = await People.create({
@@ -27,8 +35,10 @@ const postPeople = async (req, res) => {
         phone,
         genre,
         ChurchId: Number(ChurchId),
-        dob: formattedBirthDate,
+        dob: isoBirthDate,
       });
+    } else {
+      return res.status(409).json({ error: "La persona ya existe" });
     }
 
     return res.status(201).json(person);

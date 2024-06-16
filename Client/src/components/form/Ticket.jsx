@@ -2,6 +2,10 @@ import { useState } from "react";
 
 import Persona from "./People";
 import styles from "./form.module.css";
+import SelectPeople from "../select/selectPeople";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addData } from "../../redux/actions";
 
 export default function Ticket() {
   const [showPersonaModal, setShowPersonaModal] = useState(false);
@@ -16,9 +20,44 @@ export default function Ticket() {
     setShowPersonaModal(false);
   };
 
+  const [newData, setNewData] = useState({
+    id_ticket: 0,
+    state_ticket: "",
+    personId: "",
+  });
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const loading = useSelector((state) => state.loading);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewData({ ...newData, [name]: value });
+  };
+
+  const handleSelectPersonChange = (id) => {
+    setNewData({ ...newData, personId: id });
+  };
+
+  function delete_formData() {
+    setNewData({
+      id_ticket: 0,
+      state_ticket: "",
+      personId: "",
+    });
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(addData("tickets", newData));
+    delete_formData();
   };
+  function handleClearData() {
+    // showConfirmation();
+    if (window.confirm("¿Estás seguro de que quieres cerrar el registro?")) {
+      navigate("/home");
+    }
+  }
 
   return (
     <main>
@@ -34,40 +73,58 @@ export default function Ticket() {
           <form className={styles.formChurch} onSubmit={handleSubmit}>
             <div>
               <label htmlFor="id_ticket">Número de ticket:</label>
-              <input type="text" name="id_ticket" id="id_ticket" />
+              <input
+                type="text"
+                name="id_ticket"
+                id="id_ticket"
+                value={newData.id_ticket}
+                onChange={handleChange}
+              />
             </div>
 
             <div>
               <label htmlFor="state_ticket">Estado del Ticket:</label>
-              <select name="state_ticket" id="state_ticket">
+              <select
+                name="state_ticket"
+                id="state_ticket"
+                value={newData.state_ticket}
+                onChange={handleChange}
+              >
                 <option value="">Seleccione una opción</option>
                 <option value="reservado">Reservado</option>
-                <option value="comprado">Comprado</option>
+                <option value="pagado">Pagado</option>
                 <option value="utilizado">Utilizado</option>
               </select>
             </div>
 
             <div>
-              <label htmlFor="person_id">Asignada a:</label>
-              <select name="person_id" id="person_id">
-                <option value="">Seleccione una opción</option>
-                <option value="01">Reservado</option>
-                <option value="02">Comprado</option>
-                <option value="03">Utilizado</option>
-              </select>
+              <label htmlFor="personId">Asignada a:</label>
+              <SelectPeople
+                selectedPersonId={newData.personId}
+                onChange={handleSelectPersonChange}
+              />
             </div>
             <div>
-              <button onClick={openPersonaModal}>
-                Agregar datos de una persona
+              <button className={styles.modal_btn} onClick={openPersonaModal}>
+                Agregar persona
               </button>
             </div>
-            <div>
-              <button className={styles.btn_form}>
-                {" "}
+            <div className={styles.formButton}>
+              <button
+                type="submit"
+                className={styles.btn_form}
+                disabled={loading}
+              >
                 <i className="bi bi-floppy"></i>Guardar
               </button>
-              <button className={styles.btn_form}>
-                {" "}
+              <button
+                type="button"
+                className={`${styles.btn_form} ${styles.btn_x}`}
+                onClick={() => {
+                  handleClearData();
+                }}
+                disabled={loading}
+              >
                 <i className="bi bi-x-lg"></i>cerrar
               </button>
             </div>

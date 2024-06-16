@@ -100,7 +100,7 @@ function Menu() {
 
             <hr />
             <Nav.Item className={`nav-item ${styles.bgItem}`}>
-              <NavLink to="/" className="nav-link">
+              <NavLink to="/new" className="nav-link">
                 <i className={`bi bi-box-arrow-right ${styles.iconosMenu}`}></i>{" "}
                 Salir
               </NavLink>

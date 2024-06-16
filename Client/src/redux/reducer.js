@@ -75,12 +75,11 @@ const reducer = (state = initialState, { type, payload, success }) => {
       }
 
     case DATA_SUCCESS: {
-      const { entity, data } = payload;
       return {
         ...state,
         data: {
           ...state.data,
-          [entity]: data,
+          [payload.entity]: payload.data,
         },
         loading: false,
         success: true,
