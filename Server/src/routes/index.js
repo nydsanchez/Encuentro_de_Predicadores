@@ -20,6 +20,7 @@ const {
   getPerson,
   editPerson,
   deletePerson,
+  postPersonWithTicket,
 } = require("../controllers/People");
 
 //Gestión de Iglesias
@@ -30,11 +31,12 @@ router.put("/churches/:id", editChurch);
 router.delete("/churches/:id", deleteChurch);
 
 //Gestión de Personas
-router.post("/people", postPeople);
+router.post("/person", postPeople);
 router.get("/people", getAllPeople);
 router.put("/people/:id", editPerson);
 router.get("/people/:id", getPerson);
 router.delete("/people/:id", deletePerson);
+router.post("/people", postPersonWithTicket);
 
 //Gestión de Tickets
 router.post("/tickets", regTicket);

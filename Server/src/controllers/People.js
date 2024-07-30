@@ -1,4 +1,4 @@
-const { People } = require("../db");
+const { People, Tickets } = require("../db");
 const moment = require("moment");
 
 const postPeople = async (req, res) => {
@@ -41,6 +41,69 @@ const postPeople = async (req, res) => {
     return res.status(201).json(person);
   } catch (error) {
     console.error("Error al crear la persona:", error);
+    return res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
+const postPersonWithTicket = async (req, res) => {
+  try {
+    const {
+      person_id,
+      name,
+      state,
+      address,
+      phone,
+      genre,
+      ChurchId,
+      id_ticket,
+    } = req.body;
+
+    if (!(person_id && name && genre && ChurchId && id_ticket)) {
+      return res.status(400).json({ error: "Faltan datos" });
+    }
+
+    // Formatear la fecha de nacimiento a partir del ID de la persona
+    const formattedBirthDate = `20${person_id.substring(
+      4,
+      6
+    )}-${person_id.substring(6, 8)}-${person_id.substring(8, 10)}`;
+    const birthDate = moment(formattedBirthDate, "DD-MM-YY");
+    if (!birthDate.isValid()) {
+      throw new Error("Fecha de nacimiento invalida");
+    }
+    const isoBirthDate = birthDate.format("YYYY-MM-DD");
+
+    // Verificar si la persona ya existe
+    let person = await People.findByPk(person_id);
+    if (!person) {
+      person = await People.create({
+        cedula: person_id,
+        name,
+        state,
+        address,
+        phone,
+        genre,
+        ChurchId: Number(ChurchId),
+        dob: isoBirthDate,
+      });
+    } else {
+      return res.status(409).json({ error: "La persona ya existe" });
+    }
+
+    // Crear el ticket asociado
+    let ticket = await Tickets.findByPk(id_ticket);
+    if (!ticket) {
+      ticket = await Tickets.create({
+        id_ticket,
+        PersonCedula: person_id,
+      });
+    } else {
+      return res.status(409).json({ error: "El ticket ya existe" });
+    }
+
+    return res.status(201).json({ person, ticket });
+  } catch (error) {
+    console.error("Error al crear la persona y el ticket:", error);
     return res.status(500).json({ error: "Error interno del servidor" });
   }
 };
@@ -160,4 +223,5 @@ module.exports = {
   getPerson,
   editPerson,
   deletePerson,
+  postPersonWithTicket,
 };
