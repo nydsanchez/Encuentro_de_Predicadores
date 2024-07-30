@@ -10,6 +10,7 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+        allowNull: false,
       },
 
       church_name: {
@@ -46,10 +47,6 @@ module.exports = (sequelize) => {
       },
       church_address: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: { msg: "Name is a required property." },
-        },
       },
       church_phone: {
         type: DataTypes.STRING,

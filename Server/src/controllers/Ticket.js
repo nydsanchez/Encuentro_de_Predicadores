@@ -1,24 +1,25 @@
+const { Op } = require("sequelize");
 const { Tickets } = require("../db");
 
-const postTicket = async (req, res) => {
+const regTicket = async (req, res) => {
   try {
-    const { id_ticket, state_ticket, personId } = req.body;
+    const { no_ticket, state_ticket, personCedula } = req.body;
 
-    if (!(id_ticket && state_ticket && personId)) {
+    if (!(no_ticket && state_ticket && personCedula)) {
       return res.status(400).json({ error: "Faltan datos" });
     }
 
-    let ticket = await Tickets.findByPk(id_ticket);
-
+    let ticket = await Tickets.findByPk(no_ticket);
     if (!ticket) {
       ticket = await Tickets.create({
-        id_ticket,
+        no_ticket,
         state_ticket,
-        PersonId: personId,
+        PersonCedula: personCedula,
       });
     }
-
-    return res.status(201).json(ticket);
+    return res
+      .status(201)
+      .json({ message: "Ticket creado exitosamente", ticket });
   } catch (error) {
     console.error("Error al crear el ticket:", error);
     return res.status(500).json({ error: "Error interno del servidor" });
@@ -48,9 +49,9 @@ const getTickets = async (req, res) => {
 const updateTicket = async (req, res) => {
   try {
     const { id } = req.params;
-    const { state_ticket, personId } = req.body;
+    const { state_ticket, personCedula } = req.body;
 
-    if (!state_ticket && !personId) {
+    if (!personCedula) {
       return res
         .status(400)
         .send(
@@ -67,15 +68,12 @@ const updateTicket = async (req, res) => {
     const updatedData = {};
 
     // Actualizar solo los campos modificados
-    if (state_ticket && state_ticket !== ticket.state_ticket) {
-      updatedData.state_ticket = state_ticket;
+
+    if (personCedula && personCedula !== ticket.personCedula) {
+      updatedData.personCedula = personCedula;
     }
 
-    if (personId && personId !== ticket.PersonId) {
-      updatedData.PersonId = personId;
-    }
-
-    await ticket.update(updatedData);
+    await ticket.save(updatedData);
 
     return res.status(200).json(ticket);
   } catch (error) {
@@ -85,4 +83,5 @@ const updateTicket = async (req, res) => {
       .send("Error interno del servidor al actualizar los datos del ticket.");
   }
 };
-module.exports = { postTicket, getTickets, updateTicket };
+
+module.exports = { regTicket, getTickets, updateTicket };

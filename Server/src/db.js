@@ -7,7 +7,7 @@ const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/e_predicadores`,
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/evento`,
   {
     logging: false,
     native: false,
@@ -35,20 +35,16 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { People, Tickets, Attendances, Churches } = sequelize.models;
+const { People, Tickets, Churches } = sequelize.models;
 
 // Aca vendrian las relaciones
 People.hasOne(Tickets);
 Tickets.belongsTo(People);
 
-Tickets.hasOne(Attendances);
-Attendances.belongsTo(Tickets);
-
 Churches.hasMany(People);
 People.belongsTo(Churches);
 
 module.exports = {
-  Attendances,
   Churches,
   People,
   Tickets, // para poder importar los modelos así: const { Product, User } = require('./db.js');

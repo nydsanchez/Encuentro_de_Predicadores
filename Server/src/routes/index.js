@@ -1,24 +1,44 @@
 const router = require("express").Router();
 
 const {
-  postTicket,
+  regTicket,
   getTickets,
   updateTicket,
 } = require("../controllers/Ticket");
-const { getChurches, postChurch } = require("../controllers/Church");
+
+const {
+  getAllChurches,
+  postChurch,
+  getChurch,
+  editChurch,
+  deleteChurch,
+} = require("../controllers/Church");
 
 const {
   postPeople,
-  getPeople,
-  updatePerson,
+  getAllPeople,
+  getPerson,
+  editPerson,
+  deletePerson,
 } = require("../controllers/People");
 
-router.post("/tickets", postTicket);
+//Gestión de Iglesias
 router.post("/churches", postChurch);
-router.post("/people", postPeople);
+router.get("/churches", getAllChurches);
+router.get("/churches/:id", getChurch);
+router.put("/churches/:id", editChurch);
+router.delete("/churches/:id", deleteChurch);
 
-router.get("/people", getPeople);
+//Gestión de Personas
+router.post("/people", postPeople);
+router.get("/people", getAllPeople);
+router.put("/people/:id", editPerson);
+router.get("/people/:id", getPerson);
+router.delete("/people/:id", deletePerson);
+
+//Gestión de Tickets
+router.post("/tickets", regTicket);
 router.get("/tickets", getTickets);
-router.get("/churches", getChurches);
+router.put("/tickets/:id", updateTicket);
 
 module.exports = router;
