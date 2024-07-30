@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
     },
 
     state_ticket: {
-      type: DataTypes.ENUM("reservado", "utilizado", "pagado"),
+      type: DataTypes.ENUM("reservado", "utilizado"),
       allowNull: false,
       defaultValue: "reservado",
     },
