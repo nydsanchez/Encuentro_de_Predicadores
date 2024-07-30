@@ -1,17 +1,15 @@
 import axios from "axios";
 import {
   UPDATE_DATA,
-  GET_ALL_DATA,
   DATA_FAILURE,
-  DATA_SUCCESS,
   CREATE_RECORD,
+  RETRIEVE_DATA,
   ERROR,
 } from "./actions-types";
 
 const URL = "http://localhost:4000";
 
 export const createRecord = (entity, newData) => {
-  console.log("en el action", entity);
   return (dispatch) => {
     axios
       .post(`${URL}/${entity}`, newData)
@@ -32,26 +30,23 @@ export const createRecord = (entity, newData) => {
       });
   };
 };
-export const getAllData = (entity) => {
-  return async (dispatch) => {
-    dispatch({ type: GET_ALL_DATA });
-    try {
-      const response = await axios.get(`${URL}/${entity}`);
-      dispatch({
-        type: DATA_SUCCESS,
-        payload: { entity, data: response.data },
-        success: true,
+
+export const retrieveData = (entity) => {
+  return (dispatch) => {
+    axios
+      .get(`${URL}/${entity}`)
+      .then((response) => {
+        dispatch({
+          type: RETRIEVE_DATA,
+          payload: { entity: entity, data: response.data },
+        });
+      })
+      .catch((error) => {
+        const errorMessage = error.response
+          ? error.response.data
+          : "Error al cargar los datos";
+        dispatch({ type: ERROR, payload: errorMessage });
       });
-    } catch (error) {
-      const errorMessage = error.response
-        ? error.response.data
-        : "Error al cargar los datos";
-      dispatch({
-        type: DATA_FAILURE,
-        payload: errorMessage,
-        success: false,
-      });
-    }
   };
 };
 
