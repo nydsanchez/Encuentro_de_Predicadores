@@ -5,7 +5,7 @@ import styles from "./form.module.css";
 import SelectPeople from "../select/selectPeople";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addData } from "../../redux/actions";
+//import { addData } from "../../redux/actions";
 
 export default function Ticket() {
   const [showPersonaModal, setShowPersonaModal] = useState(false);
@@ -32,7 +32,7 @@ export default function Ticket() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewData({ ...newData, [name]: value });
+    setNewData({ ...newData, [name]: value.toUppercase() });
   };
 
   const handleSelectPersonChange = (id) => {
@@ -49,7 +49,7 @@ export default function Ticket() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addData("tickets", newData));
+    //dispatch(addData("tickets", newData));
     delete_formData();
   };
   function handleClearData() {

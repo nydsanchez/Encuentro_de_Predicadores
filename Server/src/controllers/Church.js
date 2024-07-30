@@ -20,12 +20,12 @@ const getAllChurches = async (req, res) => {
 const postChurch = async (req, res) => {
   try {
     const { name, state, address, phone } = req.body;
-    if (!(name && state)) {
-      return res
-        .status(400)
-        .send(
-          "Faltan datos: se requiere nombre y departamento, direccion y telefono"
-        );
+    console.log(name);
+
+    if (!name || !state) {
+      return res.status(400).json({
+        message: "El nombre y el departamento no pueden estar vacios",
+      });
     }
 
     const [church, created] = await Churches.findOrCreate({

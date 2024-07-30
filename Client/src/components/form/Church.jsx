@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addData } from "../../redux/actions";
+import { createRecord } from "../../redux/actions";
 
+import MaskedInput from "react-text-mask";
 import validation from "../../js/validation";
 import styles from "./form.module.css";
 
 export default function Church() {
+  const dispatch = useDispatch();
+  const ERROR = useSelector((state) => state.error);
+
   const [newData, setNewData] = useState({
     name: "",
     state: "",
@@ -13,36 +17,44 @@ export default function Church() {
     phone: "",
   });
 
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
-  const dispatch = useDispatch();
-  const loading = useSelector((state) => state.loading);
+
+  useEffect(() => {
+    if (isSubmitted) {
+      alert(
+        ERROR ? `Error: ${ERROR}` : "Congregación registrada exitosamente!"
+      );
+      setIsSubmitted(false);
+    }
+  }, [ERROR, isSubmitted]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewData({ ...newData, [name]: value });
-
-    const updatedErrors = validation({ ...newData, [name]: value });
-    setErrors(updatedErrors);
+    setErrors(validation({ ...newData, [name]: value }));
   };
 
-  function delete_formData() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validation(newData);
+    setErrors(validationErrors);
+    console.log(validationErrors);
+    if (Object.keys(validationErrors).length === 0) {
+      dispatch(createRecord("churches", newData));
+      setIsSubmitted(true);
+      handleClean();
+    }
+  };
+
+  function handleClean() {
     setNewData({
       name: "",
       state: "",
       address: "",
       phone: "",
     });
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(addData("churches", newData));
-    window.alert("Se ha registrado la congregación exitosamente");
-    delete_formData();
-  };
-
-  function handleClearData() {
-    delete_formData();
+    setErrors({});
   }
 
   return (
@@ -80,7 +92,7 @@ export default function Church() {
                 onChange={handleChange}
               >
                 <option value="">Seleccione una opción</option>
-                <option value="Boaco">Managua</option>
+                <option value="Boaco">Boaco</option>
                 <option value="Carazo">Carazo</option>
                 <option value="Chinandega">Chinandega</option>
                 <option value="Chontales">Chontales</option>
@@ -117,13 +129,31 @@ export default function Church() {
 
             <div className={styles.miembros_info_personal}>
               <label htmlFor="phone">Teléfono de la congregación</label>
-              <input
-                type="text"
+              <MaskedInput
+                mask={[
+                  "(",
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  ")",
+                  "-",
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  "-",
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                ]}
+                guide={false}
+                value={newData.phone || ""}
+                onChange={handleChange}
                 name="phone"
                 id="phone"
-                value={newData.phone}
-                onChange={handleChange}
-              />{" "}
+                placeholder="(505)-9999-9999"
+              />
               {errors.e1 ? (
                 <p className={styles.error_msg}>{errors.e1}</p>
               ) : (
@@ -131,26 +161,15 @@ export default function Church() {
               )}
             </div>
             <div className={styles.formButton}>
-              <button
-                type="submit"
-                className={styles.btn_form}
-                disabled={loading}
-              >
-                {loading ? (
-                  "Enviando..."
-                ) : (
-                  <>
-                    <i className="bi bi-floppy"></i> Guardar
-                  </>
-                )}
+              <button type="submit" className={styles.btn_form}>
+                <i className="bi bi-floppy"></i> Guardar
               </button>
               <button
                 type="button"
                 className={`${styles.btn_form} ${styles.btn_x}`}
-                onClick={handleClearData}
-                disabled={loading}
+                onClick={handleClean}
               >
-                <i className="bi bi-x-lg"></i> Cerrar
+                <i className="bi bi-x-lg"></i> Borrar datos
               </button>
             </div>
           </form>

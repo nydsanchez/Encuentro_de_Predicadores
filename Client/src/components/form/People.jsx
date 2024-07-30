@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addData } from "../../redux/actions";
+//import { addData } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 
 import PropTypes from "prop-types";
@@ -63,7 +63,7 @@ export default function People({ onClose, isModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addData("people", newData));
+    // dispatch(addData("people", newData));
     window.alert("Se ha guardado los datos exitosamente");
     if (isModal) {
       onClose(); // Cierra la modal al enviar el formulario

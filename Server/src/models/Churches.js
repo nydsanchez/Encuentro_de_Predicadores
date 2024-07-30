@@ -8,9 +8,9 @@ module.exports = (sequelize) => {
     {
       id: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
         allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
       },
 
       church_name: {
@@ -47,9 +47,11 @@ module.exports = (sequelize) => {
       },
       church_address: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       church_phone: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     {
