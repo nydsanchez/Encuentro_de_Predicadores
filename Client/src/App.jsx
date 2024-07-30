@@ -7,7 +7,6 @@ import NewPerson from "./Pages/People/NewPerson";
 import PeopleList from "./Pages/People/PeopleList";
 import NewTicket from "./Pages/Tickets/NewTicket";
 import TicketList from "./Pages/Tickets/TicketList";
-import TestComponent from "./components/test";
 
 function App() {
   return (
@@ -20,7 +19,6 @@ function App() {
       <Route path="/personas/listado" element={<PeopleList />} />
       <Route path="/tickets" element={<NewTicket />} />
       <Route path="/tickets/listado" element={<TicketList />} />
-      <Route path="/new" element={<TestComponent />} />
     </Routes>
   );
 }

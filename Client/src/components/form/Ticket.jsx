@@ -1,14 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createRecord } from "../../redux/actions";
 
+import SelectPeople from "../select/selectPeople";
 import Persona from "./People";
 import styles from "./form.module.css";
-import SelectPeople from "../select/selectPeople";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-//import { addData } from "../../redux/actions";
 
 export default function Ticket() {
+  const dispatch = useDispatch();
+  const ERROR = useSelector((state) => state.error);
+
+  const [newData, setNewData] = useState({
+    id_ticket: 0,
+    personId: "",
+  });
+
   const [showPersonaModal, setShowPersonaModal] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (isSubmitted) {
+      alert(
+        ERROR ? `Error: ${ERROR}` : "Congregación registrada exitosamente!"
+      );
+      setIsSubmitted(false);
+    }
+  }, [ERROR, isSubmitted]);
 
   // Función para abrir la modal de Persona
   const openPersonaModal = () => {
@@ -20,16 +37,6 @@ export default function Ticket() {
     setShowPersonaModal(false);
   };
 
-  const [newData, setNewData] = useState({
-    id_ticket: 0,
-    state_ticket: "",
-    personId: "",
-  });
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const loading = useSelector((state) => state.loading);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewData({ ...newData, [name]: value.toUppercase() });
@@ -39,24 +46,19 @@ export default function Ticket() {
     setNewData({ ...newData, personId: id });
   };
 
-  function delete_formData() {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    dispatch(createRecord("tickets", newData));
+    setIsSubmitted(true);
+    handleClean();
+  };
+
+  function handleClean() {
     setNewData({
       id_ticket: 0,
-      state_ticket: "",
       personId: "",
     });
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    //dispatch(addData("tickets", newData));
-    delete_formData();
-  };
-  function handleClearData() {
-    // showConfirmation();
-    if (window.confirm("¿Estás seguro de que quieres cerrar el registro?")) {
-      navigate("/home");
-    }
   }
 
   return (
@@ -83,21 +85,6 @@ export default function Ticket() {
             </div>
 
             <div>
-              <label htmlFor="state_ticket">Estado del Ticket:</label>
-              <select
-                name="state_ticket"
-                id="state_ticket"
-                value={newData.state_ticket}
-                onChange={handleChange}
-              >
-                <option value="">Seleccione una opción</option>
-                <option value="reservado">Reservado</option>
-                <option value="pagado">Pagado</option>
-                <option value="utilizado">Utilizado</option>
-              </select>
-            </div>
-
-            <div>
               <label htmlFor="personId">Asignada a:</label>
               <SelectPeople
                 selectedPersonId={newData.personId}
@@ -110,22 +97,17 @@ export default function Ticket() {
               </button>
             </div>
             <div className={styles.formButton}>
-              <button
-                type="submit"
-                className={styles.btn_form}
-                disabled={loading}
-              >
+              <button type="submit" className={styles.btn_form}>
                 <i className="bi bi-floppy"></i>Guardar
               </button>
               <button
                 type="button"
                 className={`${styles.btn_form} ${styles.btn_x}`}
                 onClick={() => {
-                  handleClearData();
+                  handleClean();
                 }}
-                disabled={loading}
               >
-                <i className="bi bi-x-lg"></i>cerrar
+                <i className="bi bi-x-lg"></i>borrar datos
               </button>
             </div>
           </form>

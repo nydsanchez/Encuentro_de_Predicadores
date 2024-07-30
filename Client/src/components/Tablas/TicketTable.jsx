@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getAllData } from "../../redux/actions";
+import { retrieveData } from "../../redux/actions";
 import { FaPencil, FaEye, FaEraser } from "react-icons/fa6";
 
 import styles from "./tablas.module.css";
@@ -26,8 +26,8 @@ function TicketTable() {
   };
   console.log(tickets);
   useEffect(() => {
-    dispatch(getAllData("tickets"));
-    dispatch(getAllData("people"));
+    dispatch(retrieveData("people"));
+    dispatch(retrieveData("tickets"));
   }, [dispatch]);
 
   const getPersonName = (personId) => {
