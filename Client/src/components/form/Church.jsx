@@ -39,7 +39,7 @@ export default function Church() {
     e.preventDefault();
     const validationErrors = validation(newData);
     setErrors(validationErrors);
-    console.log(validationErrors);
+
     if (Object.keys(validationErrors).length === 0) {
       dispatch(createRecord("churches", newData));
       setIsSubmitted(true);

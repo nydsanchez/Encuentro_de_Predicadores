@@ -61,7 +61,7 @@ function Menu() {
               </Nav>
             )}
 
-            <Nav.Link
+            {/* <Nav.Link
               onClick={() => handleMenuClick("ticket")}
               className={`dropdown-toggle ${styles.menu} ${styles.bgItem}`}
             >
@@ -74,7 +74,7 @@ function Menu() {
                 <NavLink to="/tickets">Registro de tickets</NavLink>
                 <NavLink to="/tickets/listado">Consultar tickets </NavLink>
               </Nav>
-            )}
+            )} */}
 
             <Nav.Link
               onClick={() => handleMenuClick("attendance")}
@@ -85,10 +85,8 @@ function Menu() {
             </Nav.Link>
             {activeMenu === "attendance" && (
               <Nav className="flex-column">
-                <NavLink to="/asistencias">Registro de Asistentes</NavLink>
-                <NavLink to="/listado-de-asistencia">
-                  Lista de asistencia
-                </NavLink>
+                <NavLink to="/asistencias">Registro</NavLink>
+                <NavLink to="/listado-de-asistencia">Listado</NavLink>
               </Nav>
             )}
 

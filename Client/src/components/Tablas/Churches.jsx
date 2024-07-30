@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getAllData } from "../../redux/actions";
+import { retrieveData } from "../../redux/actions";
 import { FaPencil, FaEye, FaEraser } from "react-icons/fa6";
 
 import styles from "./tablas.module.css";
@@ -8,7 +8,6 @@ import styles from "./tablas.module.css";
 function Churches() {
   const dispatch = useDispatch();
   const churches = useSelector((state) => state.data.churches);
-  const loading = useSelector((state) => state.loading);
   const error = useSelector((state) => state.error);
 
   const handleEdit = (index) => {
@@ -22,13 +21,11 @@ function Churches() {
   const handleDelete = (index) => {
     console.log("Delete item at index:", index);
   };
-  console.log("Renderizando Churches");
 
   useEffect(() => {
-    dispatch(getAllData("churches"));
+    dispatch(retrieveData("churches"));
   }, [dispatch]);
 
-  if (loading) return <p>Cargando datos...</p>;
   if (error) return <p>Error al cargar los datos: {error}</p>;
 
   return (

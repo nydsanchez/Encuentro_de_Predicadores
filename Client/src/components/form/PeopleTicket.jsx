@@ -9,9 +9,8 @@ import SelectChurch from "../select/selectChurch";
 import validation from "../../js/validationPeopleForm";
 import styles from "./peopleform.module.css";
 
-export default function People({ onClose, isModal }) {
+export default function People() {
   const dispatch = useDispatch();
-
   const ERROR = useSelector((state) => state.error);
 
   const [newData, setNewData] = useState({
@@ -22,6 +21,7 @@ export default function People({ onClose, isModal }) {
     phone: "",
     genre: "",
     ChurchId: "",
+    id_ticket: 0,
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -62,23 +62,9 @@ export default function People({ onClose, isModal }) {
     if (Object.keys(validationErrors).length === 0) {
       dispatch(createRecord("people", newData));
       setIsSubmitted(true);
-      if (isModal) {
-        onClose();
-      }
       handleClean();
     }
   };
-
-  // const handleSubmit2 = (e) => {
-  //   e.preventDefault();
-  //   // dispatch(addData("people", newData));
-  //   window.alert("Se ha guardado los datos exitosamente");
-  //   if (isModal) {
-  //     onClose(); // Cierra la modal al enviar el formulario
-  //   }
-
-  //   delete_formData();
-  // };
 
   function handleClean() {
     setNewData({
@@ -89,13 +75,14 @@ export default function People({ onClose, isModal }) {
       phone: "",
       genre: "",
       ChurchId: "",
+      id_ticket: 0,
     });
     setErrors({});
   }
 
   return (
-    <main className={isModal ? styles.modalMain : ""}>
-      <div className={isModal ? styles.modalContent : styles.grid_container}>
+    <main>
+      <div className={styles.grid_container}>
         <div className={styles.grid_container_text}>
           <h3>Registro de Personas</h3>
 
@@ -129,6 +116,7 @@ export default function People({ onClose, isModal }) {
                 id="person_id"
                 placeholder="123-456789-0123A"
               />
+              {errors.cedula && <p className={styles.error}>{errors.cedula}</p>}
             </div>
 
             <div>
@@ -140,11 +128,7 @@ export default function People({ onClose, isModal }) {
                 value={newData.name}
                 onChange={handleChange}
               />
-              {errors.e1 ? (
-                <p className={styles.error_msg}>{errors.e1}</p>
-              ) : (
-                <p>&nbsp;</p>
-              )}
+              {errors.name && <p className={styles.error}>{errors.name}</p>}
             </div>
             <div className={styles.miembros_info_personal}>
               <label htmlFor="state">Departamento:</label>
@@ -233,26 +217,32 @@ export default function People({ onClose, isModal }) {
                 onChange={handleSelectChurchChange}
               />
             </div>
+
+            <div>
+              <label htmlFor="name">Número de ticket</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                value={newData.id_ticket}
+                onChange={handleChange}
+              />
+              {errors.e1 ? (
+                <p className={styles.error_msg}>{errors.e1}</p>
+              ) : (
+                <p>&nbsp;</p>
+              )}
+            </div>
             <div className={styles.formButton}>
-              <button
-                type="submit"
-                className={styles.btn_form}
-                onClick={onClose}
-              >
-                {isModal ? (
-                  "Guardar y cerrar"
-                ) : (
-                  <>
-                    <i className="bi bi-floppy"></i> Guardar
-                  </>
-                )}
+              <button type="submit" className={styles.btn_form}>
+                <i className="bi bi-floppy"></i> Guardar
               </button>
               <button
                 type="button"
                 className={`${styles.btn_form} ${styles.btn_x}`}
-                onClick={() => {
-                  handleClean(); // Llama a handleClearData después de confirmar
-                }}
+                onClick={
+                  handleClean // Llama a handleClearData después de confirmar
+                }
               >
                 <i className="bi bi-x-lg"></i> Borrar datos
               </button>
@@ -263,7 +253,3 @@ export default function People({ onClose, isModal }) {
     </main>
   );
 }
-People.propTypes = {
-  onClose: PropTypes.func.isRequired, // onClose debe ser una función y es requerida
-  isModal: PropTypes.bool.isRequired, // isModal debe ser un booleano y es requerido
-};

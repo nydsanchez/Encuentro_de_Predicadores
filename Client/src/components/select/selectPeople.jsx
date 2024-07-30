@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllData } from "../../redux/actions";
+import { retrieveData } from "../../redux/actions";
 
 import PropTypes from "prop-types";
 
@@ -15,7 +15,7 @@ const SelectPeople = ({ person_Id, onChange }) => {
 
   useEffect(() => {
     if (!data) {
-      dispatch(getAllData("people"));
+      dispatch(retrieveData("people"));
     }
   }, [dispatch, data]);
 

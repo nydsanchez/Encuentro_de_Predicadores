@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getAllData } from "../../redux/actions";
+import { retrieveData } from "../../redux/actions";
 import { FaPencil, FaEye, FaEraser } from "react-icons/fa6";
 
 import styles from "./tablas.module.css";
@@ -25,7 +25,7 @@ function PeopleTable() {
   };
   console.log(people);
   useEffect(() => {
-    dispatch(getAllData("people"));
+    dispatch(retrieveData("people"));
   }, [dispatch]);
   return (
     <main>
