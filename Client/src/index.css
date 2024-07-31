@@ -28,10 +28,12 @@ body {
 .app {
   display: grid;
   width: 100vw;
+  height: 100vh;
   grid-template-areas:
     "header header"
-    "nav  main";
-  grid-template-rows: 12vh auto;
+    "nav  main"
+    "footer footer";
+  grid-template-rows: 12vh auto 10vh;
   grid-template-columns: 18vw 80vw;
   column-gap: 2rem;
   overflow-x: hidden;
@@ -55,4 +57,10 @@ body {
   margin: 3rem;
   padding-bottom: 2.5rem;
   border-radius: 1rem;
+}
+
+.app > footer {
+  grid-area: footer;
+  background: var(--color-title);
+  align-self: end;
 }
