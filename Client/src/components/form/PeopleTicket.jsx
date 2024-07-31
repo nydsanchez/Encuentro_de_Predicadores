@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createRecord } from "../../redux/actions";
-
-import PropTypes from "prop-types";
+import { createRecord, retrieveData } from "../../redux/actions";
 
 import MaskedInput from "react-text-mask";
 import SelectChurch from "../select/selectChurch";
@@ -28,9 +26,15 @@ export default function People() {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
+    dispatch(retrieveData("churches"));
+  }, [dispatch]);
+
+  useEffect(() => {
     if (isSubmitted) {
       alert(
-        ERROR ? `Error: ${ERROR}` : "Congregación registrada exitosamente!"
+        ERROR.error
+          ? `Error: ${ERROR}`
+          : "Los datos se han registrado exitosamente!"
       );
       setIsSubmitted(false);
     }
@@ -157,6 +161,7 @@ export default function People() {
                 <option value="RACCN">Región Autonoma del Caribe Norte</option>
                 <option value="RACCS">Región Autonoma del Caribe Sur</option>
               </select>
+              {errors.state && <p className={styles.error}>{errors.state}</p>}
             </div>
             <div>
               <label htmlFor="address">Dirección:</label>
@@ -209,6 +214,7 @@ export default function People() {
                 <option value="Femenino">Femenino</option>
                 <option value="Masculino">Masculino</option>
               </select>
+              {errors.genre && <p className={styles.error}>{errors.genre}</p>}
             </div>
             <div>
               <label htmlFor="ChurchId">Congregación:</label>
@@ -219,19 +225,15 @@ export default function People() {
             </div>
 
             <div>
-              <label htmlFor="name">Número de ticket</label>
+              <label htmlFor="id_ticket">Número de ticket</label>
               <input
                 type="text"
-                name="name"
-                id="name"
+                name="id_ticket"
+                id="id_ticket"
                 value={newData.id_ticket}
                 onChange={handleChange}
               />
-              {errors.e1 ? (
-                <p className={styles.error_msg}>{errors.e1}</p>
-              ) : (
-                <p>&nbsp;</p>
-              )}
+              {errors.ticket && <p className={styles.error}>{errors.ticket}</p>}
             </div>
             <div className={styles.formButton}>
               <button type="submit" className={styles.btn_form}>

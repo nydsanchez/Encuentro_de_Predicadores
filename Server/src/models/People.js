@@ -11,8 +11,8 @@ module.exports = (sequelize) => {
         allowNull: false,
         primaryKey: true,
         validate: {
-          notEmpty: { msg: "Name cannot be empty." },
-          notNull: { msg: "Name is a required property." },
+          notEmpty: { msg: "cedula cannot be empty." },
+          notNull: { msg: "cedula is a required property." },
         },
       },
       name: {

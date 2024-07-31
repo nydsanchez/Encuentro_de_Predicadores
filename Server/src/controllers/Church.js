@@ -20,7 +20,6 @@ const getAllChurches = async (req, res) => {
 const postChurch = async (req, res) => {
   try {
     const { name, state, address, phone } = req.body;
-    console.log(name);
 
     if (!name || !state) {
       return res.status(400).json({
@@ -51,23 +50,6 @@ const postChurch = async (req, res) => {
   }
 };
 
-const getChurch = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const detailChurch = await Churches.findByPk(id);
-
-    if (detailChurch) {
-      return res.status(200).json(detailChurch);
-    } else {
-      return res.status(400).json({
-        message: "no se han registrado ningun congregacion con ese id",
-      });
-    }
-  } catch (error) {
-    return res.status(500).send("Error interno del servidor");
-  }
-};
-
 const editChurch = async (req, res) => {
   const { id } = req.params;
   const { name, state, address, phone } = req.body;
@@ -79,25 +61,23 @@ const editChurch = async (req, res) => {
       return res.status(404).send({ message: "Congregacion no encontrada" });
     }
 
-    const updatedData = {};
-
     if (name && name !== church.church_name) {
-      updatedData.church_name = name;
+      church.church_name = name;
     }
 
     if (state && state !== church.church_state) {
-      updatedData.church_state = state;
+      church.church_state = state;
     }
 
     if (address && address !== church.church_address) {
-      updatedData.church_address = address;
+      church.church_address = address;
     }
 
     if (phone && phone !== church.church_phone) {
-      updatedData.church_phone = phone;
+      church.church_phone = phone;
     }
 
-    await church.save(updatedData);
+    await church.save();
 
     return res.status(200).json(church);
   } catch (error) {
@@ -106,28 +86,8 @@ const editChurch = async (req, res) => {
   }
 };
 
-const deleteChurch = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const churchDeleted = await Churches.findByPk(id);
-
-    if (!churchDeleted) {
-      return res.status(404).send({ message: "Congregacion no encontrada" });
-    }
-    await churchDeleted.destroy();
-
-    return res.status(200).send({ message: "Congregación eliminada" });
-  } catch (error) {
-    return res.status(500).send({
-      message: "Error al eliminar la congregacion",
-      error: error.message,
-    });
-  }
-};
 module.exports = {
   getAllChurches,
   postChurch,
-  getChurch,
   editChurch,
-  deleteChurch,
 };

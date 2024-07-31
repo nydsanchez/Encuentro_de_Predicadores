@@ -59,7 +59,7 @@ const postPersonWithTicket = async (req, res) => {
     } = req.body;
 
     if (!(person_id && name && genre && ChurchId && id_ticket)) {
-      return res.status(400).json({ error: "Faltan datos" });
+      return res.status(400).json({ error: "faltan datos" });
     }
 
     // Formatear la fecha de nacimiento a partir del ID de la persona
@@ -74,34 +74,46 @@ const postPersonWithTicket = async (req, res) => {
     const isoBirthDate = birthDate.format("YYYY-MM-DD");
 
     // Verificar si la persona ya existe
-    let person = await People.findByPk(person_id);
-    if (!person) {
-      person = await People.create({
-        cedula: person_id,
-        name,
-        state,
-        address,
-        phone,
-        genre,
-        ChurchId: Number(ChurchId),
-        dob: isoBirthDate,
-      });
-    } else {
+    const personExists = await People.findByPk(person_id);
+    if (personExists) {
       return res.status(409).json({ error: "La persona ya existe" });
     }
 
-    // Crear el ticket asociado
-    let ticket = await Tickets.findByPk(id_ticket);
-    if (!ticket) {
-      ticket = await Tickets.create({
-        id_ticket,
-        PersonCedula: person_id,
-      });
-    } else {
+    // Verificar si el ticket ya existe
+    const ticketExists = await Tickets.findByPk(id_ticket);
+    if (ticketExists) {
       return res.status(409).json({ error: "El ticket ya existe" });
     }
 
-    return res.status(201).json({ person, ticket });
+    // Crear la persona
+    const person = await People.create({
+      id: person_id,
+      name,
+      state,
+      address,
+      phone,
+      genre,
+      ChurchId: Number(ChurchId),
+      dob: isoBirthDate,
+    });
+
+    // Crear el ticket
+    const ticket = await Tickets.create({
+      id_ticket,
+    });
+
+    // Asociar el ticket a la persona
+    await ticket.setPerson(person);
+
+    // Obtener la persona con los tickets asociados
+    const personWithTickets = await People.findByPk(person_id, {
+      include: {
+        model: Tickets,
+        attributes: ["id_ticket", "state_ticket"],
+      },
+    });
+
+    return res.status(201).json(personWithTickets);
   } catch (error) {
     console.error("Error al crear la persona y el ticket:", error);
     return res.status(500).json({ error: "Error interno del servidor" });
@@ -111,7 +123,7 @@ const postPersonWithTicket = async (req, res) => {
 const getAllPeople = async (req, res) => {
   try {
     const countPeople = await People.count();
-    if (countPeople !== 0) {
+    if (countPeople > 0) {
       const allPeople = await People.findAll();
       return res.status(200).json(allPeople);
     } else {
@@ -127,7 +139,7 @@ const getAllPeople = async (req, res) => {
 
 const getPerson = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.query;
     const detailPerson = await People.findByPk(id);
 
     if (detailPerson) {
@@ -153,40 +165,38 @@ const editPerson = async (req, res) => {
         .send({ message: "Esta persona no esta registrada" });
     }
 
-    const updatedData = {};
-
     if (id && id !== person.id) {
-      updatedData.id = id;
+      person.id = id;
     }
 
     if (name && name !== person.name) {
-      updatedData.name = name;
+      person.name = name;
     }
 
     if (state && state !== person.state) {
-      updatedData.state = state;
+      person.state = state;
     }
 
     if (address && address !== person.address) {
-      updatedData.address = address;
+      person.address = address;
     }
 
     if (phone && phone !== person.phone) {
-      updatedData.phone = phone;
+      person.phone = phone;
     }
     if (genre && genre !== person.genre) {
-      updatedData.genre = genre;
+      person.genre = genre;
     }
 
     if (dob && dob !== person.dob) {
-      updatedData.dob = dob;
+      person.dob = dob;
     }
 
     if (churchId && churchId !== person.ChurchId) {
-      updatedData.churchId = churchId;
+      person.churchId = churchId;
     }
 
-    await person.save(updatedData);
+    await person.save();
 
     return res.status(200).json(person);
   } catch (error) {
@@ -195,33 +205,10 @@ const editPerson = async (req, res) => {
   }
 };
 
-const deletePerson = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const person = await People.findByPk(id);
-    if (!person) {
-      return res
-        .status(404)
-        .send({ message: "No se ha registrado esta identificación" });
-    }
-
-    await person.destroy();
-    return res
-      .status(200)
-      .send({ message: "Persona eliminada de la base de datos" });
-  } catch (error) {
-    return res.status(500).send({
-      message: "Error al eliminar a la persona",
-      error: error.message,
-    });
-  }
-};
-
 module.exports = {
   postPeople,
   getAllPeople,
   getPerson,
   editPerson,
-  deletePerson,
   postPersonWithTicket,
 };
