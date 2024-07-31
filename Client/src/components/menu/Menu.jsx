@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+
+import { FaClipboardList, FaSearch, FaUserCheck } from "react-icons/fa";
+
 import styles from "./Menu.module.css";
 
 function Menu() {
@@ -16,7 +19,7 @@ function Menu() {
   };
 
   return (
-    <nav>
+    <nav className={styles.menuprincipal}>
       <Navbar expand="lg" className={`  ${styles.menu}`}>
         <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle}>
           {expanded && <span className="navbar-toggler-icon"></span>}
@@ -35,56 +38,57 @@ function Menu() {
             </Nav.Item>
 
             <Nav.Link
-              onClick={() => handleMenuClick("congregations")}
+              onClick={() => handleMenuClick("registro")}
               className={`dropdown-toggle ${styles.menu} ${styles.bgItem}`}
             >
-              <i className={`bi bi-hospital ${styles.iconosMenu}`}></i> Iglesias
+              <FaClipboardList className={styles.iconosMenu} />
+              Registro
             </Nav.Link>
 
-            {activeMenu === "congregations" && (
-              <Nav className="flex-column">
-                <NavLink to="/iglesia/nuevo">Nueva Congregación</NavLink>
-                <NavLink to="/iglesia/listado">Ver Congregaciones</NavLink>
+            {activeMenu === "registro" && (
+              <Nav className={`flex-column ${styles.submenu}`}>
+                <NavLink
+                  to="/registro/congregacion"
+                  className={styles.submenu__background}
+                >
+                  Nueva Congregación
+                </NavLink>
+                <NavLink
+                  to="/registro/persona"
+                  className={styles.submenu__background}
+                >
+                  Agregar persona
+                </NavLink>
+                <NavLink
+                  to="/registro/ticket"
+                  className={styles.submenu__background}
+                >
+                  Agregar Ticket
+                </NavLink>
+                <NavLink
+                  to="/registro/persona-ticket"
+                  className={styles.submenu__background}
+                >
+                  Agregar persona y ticket
+                </NavLink>
               </Nav>
             )}
 
-            <Nav.Link
-              onClick={() => handleMenuClick("people")}
-              className={`dropdown-toggle ${styles.menu} ${styles.bgItem} `}
-            >
-              <i className={`bi bi-person ${styles.iconosMenu}`}></i> Personas
-            </Nav.Link>
-            {activeMenu === "people" && (
-              <Nav className="flex-column">
-                <NavLink to="/personas">Registro de Personas</NavLink>
-                <NavLink to="/personas/listado">Consultar Personas </NavLink>
-              </Nav>
-            )}
-
-            {/* <Nav.Link
-              onClick={() => handleMenuClick("ticket")}
-              className={`dropdown-toggle ${styles.menu} ${styles.bgItem}`}
-            >
-              <i className={`bi bi-ticket-perforated ${styles.iconosMenu}`}></i>
-              {"    "}
-              Tickets
-            </Nav.Link>
-            {activeMenu === "ticket" && (
-              <Nav className="flex-column">
-                <NavLink to="/tickets">Registro de tickets</NavLink>
-                <NavLink to="/tickets/listado">Consultar tickets </NavLink>
-              </Nav>
-            )} */}
+            <Nav.Item className={`nav-item ${styles.bgItem}`}>
+              <NavLink to="/home" className="nav-link">
+                <FaSearch className={styles.iconosMenu} />
+                Consultas
+              </NavLink>
+            </Nav.Item>
 
             <Nav.Link
               onClick={() => handleMenuClick("attendance")}
               className={`dropdown-toggle ${styles.menu} ${styles.bgItem}`}
             >
-              <i className={`bi bi-journal-check ${styles.iconosMenu}`}></i>{" "}
-              Asistencia
+              <FaUserCheck className={styles.iconosMenu} /> Asistencia
             </Nav.Link>
             {activeMenu === "attendance" && (
-              <Nav className="flex-column">
+              <Nav className={`flex-column ${styles.submenu}`}>
                 <NavLink to="/asistencias">Registro</NavLink>
                 <NavLink to="/listado-de-asistencia">Listado</NavLink>
               </Nav>

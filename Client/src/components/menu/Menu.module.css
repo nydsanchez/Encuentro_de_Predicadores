@@ -1,4 +1,4 @@
-nav {
+.menuprincipal {
   padding-left: 1rem;
   font-size: 1.6rem;
   text-transform: uppercase;
@@ -25,4 +25,16 @@ nav a:hover {
 .bgItem:hover {
   background-color: var(--bg-color-hover);
   width: 120%;
+}
+.submenu {
+  text-transform: none;
+}
+.submenu__background {
+  padding-left: 1rem;
+  padding-right: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+.submenu__background:hover {
+  background-color: var(--bg-color-active);
+  color: #fff;
 }
