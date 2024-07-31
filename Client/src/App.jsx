@@ -13,11 +13,13 @@ function App() {
     <Routes>
       <Route path="/home" element={<Home />} />
       <Route path="*" element={<PageNotFound />} />
-      <Route path="/iglesia/nuevo" element={<NewChurches />} />
+      <Route path="/registro/congregacion" element={<NewChurches />} />
+      <Route path="/registro/persona" element={<NewPerson />} />
+      <Route path="/registro/ticket" element={<NewTicket />} />
+      <Route path="/registro/persona-ticket" element={<NewTicket />} />
+
       <Route path="/iglesia/listado" element={<ChurchesList />} />
-      <Route path="/personas" element={<NewPerson />} />
       <Route path="/personas/listado" element={<PeopleList />} />
-      <Route path="/tickets" element={<NewTicket />} />
       <Route path="/tickets/listado" element={<TicketList />} />
     </Routes>
   );
