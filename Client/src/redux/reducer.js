@@ -19,6 +19,7 @@ const reducer = (state = initialState, { type, payload }) => {
           ...state.data,
           [entity]: [...state.data[entity], data],
         },
+        error: null,
       };
     }
 
@@ -27,6 +28,10 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         data: { ...state.data, [entity]: data },
+        error: {
+          ...state.error,
+          error: null,
+        },
       };
     }
 
