@@ -174,7 +174,7 @@ export default function People() {
               />
             </div>
             <div>
-              <label htmlFor="phone">No. Teléfono/celular:</label>
+              <label htmlFor="phone">No. Teléfono:</label>
 
               <MaskedInput
                 mask={[
@@ -224,17 +224,6 @@ export default function People() {
               />
             </div>
 
-            <div>
-              <label htmlFor="id_ticket">Número de ticket</label>
-              <input
-                type="text"
-                name="id_ticket"
-                id="id_ticket"
-                value={newData.id_ticket}
-                onChange={handleChange}
-              />
-              {errors.ticket && <p className={styles.error}>{errors.ticket}</p>}
-            </div>
             <div className={styles.formButton}>
               <button type="submit" className={styles.btn_form}>
                 <i className="bi bi-floppy"></i> Guardar

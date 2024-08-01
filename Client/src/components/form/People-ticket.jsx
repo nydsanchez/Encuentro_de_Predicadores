@@ -9,7 +9,7 @@ import SelectChurch from "../select/selectChurch";
 import validation from "../../js/validationPeopleForm";
 import styles from "./peopleform.module.css";
 
-export default function People({ onClose, isModal }) {
+export default function PeopleTicket({ onClose, isModal }) {
   const dispatch = useDispatch();
 
   const ERROR = useSelector((state) => state.error);
@@ -252,11 +252,9 @@ export default function People({ onClose, isModal }) {
             </div>
           </form>
         </div>
-        <div
-          className={styles.grid_container_imgPeople}
-          role="img"
-          aria-label="imagen de personas"
-        ></div>
+        <div>
+          <p> hola a todos </p>
+        </div>
       </div>
     </main>
   );

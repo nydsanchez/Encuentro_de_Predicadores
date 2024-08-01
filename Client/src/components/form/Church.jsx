@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createRecord } from "../../redux/actions";
 
 import MaskedInput from "react-text-mask";
-import validation from "../../js/validation";
+import validation from "../../js/validationChurchForm";
 import styles from "./form.module.css";
 
 export default function Church() {
@@ -76,12 +76,9 @@ export default function Church() {
                 id="name"
                 value={newData.name}
                 onChange={handleChange}
+                placeholder="IDC ..."
               />{" "}
-              {errors.e1 ? (
-                <p className={styles.error_msg}>{errors.e1}</p>
-              ) : (
-                <p>&nbsp;</p>
-              )}
+              {errors.name && <p className={styles.error}>{errors.name}</p>}
             </div>
             <div className={styles.miembros_info_personal}>
               <label htmlFor="state">Departamento:</label>
@@ -110,6 +107,7 @@ export default function Church() {
                 <option value="RACCN">Región Autonoma del Caribe Norte</option>
                 <option value="RACCS">Región Autonoma del Caribe Sur</option>
               </select>
+              {errors.state && <p className={styles.error}>{errors.state}</p>}
             </div>
             <div className={styles.miembros_info_personal}>
               <label htmlFor="address">Dirección de la congregación</label>
@@ -119,12 +117,7 @@ export default function Church() {
                 id="address"
                 value={newData.address}
                 onChange={handleChange}
-              />{" "}
-              {errors.e1 ? (
-                <p className={styles.error_msg}>{errors.e1}</p>
-              ) : (
-                <p>&nbsp;</p>
-              )}
+              />
             </div>
 
             <div className={styles.miembros_info_personal}>
@@ -154,11 +147,6 @@ export default function Church() {
                 id="phone"
                 placeholder="(505)-9999-9999"
               />
-              {errors.e1 ? (
-                <p className={styles.error_msg}>{errors.e1}</p>
-              ) : (
-                <p>&nbsp;</p>
-              )}
             </div>
             <div className={styles.formButton}>
               <button type="submit" className={styles.btn_form}>
