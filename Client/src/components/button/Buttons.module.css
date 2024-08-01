@@ -1,0 +1,20 @@
+.btn,
+.btn__disabled {
+  padding: 0.8rem 1.2rem;
+  width: auto;
+  height: 3.5rem;
+  font-family: inherit;
+  font-size: 1.6rem;
+  line-height: 1.3rem;
+  border-radius: 5px;
+  background: var(--color-light--3);
+}
+
+.btn {
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.btn__disabled {
+  color: var(--color-menu);
+}
