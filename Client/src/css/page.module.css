@@ -1,0 +1,39 @@
+.app {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  grid-template-areas:
+    "header header"
+    "nav  main"
+    "footer footer";
+  grid-template-rows: 12vh auto 10vh;
+  grid-template-columns: 18vw 80vw;
+  column-gap: 2rem;
+  overflow-x: hidden;
+  text-align: center;
+}
+
+/*  HEADER SECTION  */
+.app > header {
+  grid-area: header;
+}
+
+/*  ASIDE MENU  */
+.app > nav {
+  grid-area: nav;
+  margin: 3rem;
+}
+/* MAIN SECTION*/
+.app > main {
+  grid-area: main;
+  background: var(--color-sec);
+  margin: 3rem;
+  padding-bottom: 2.5rem;
+  border-radius: 1rem;
+}
+
+.app > footer {
+  grid-area: footer;
+  background: var(--color-title);
+  align-self: end;
+}

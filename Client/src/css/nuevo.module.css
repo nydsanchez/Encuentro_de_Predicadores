@@ -1,0 +1,24 @@
+.page_new {
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--color-dark--1);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.page_new_header {
+  height: 9.6rem;
+  width: 100vw;
+}
+.page_new_asideMenu {
+  width: 15vw;
+}
+
+.page_new_MainSection {
+  width: 85vw;
+}
+
+.page_new_footer {
+  display: flex;
+  background: var(--color-main);
+}

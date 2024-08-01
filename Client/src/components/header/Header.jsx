@@ -4,7 +4,7 @@ import styles from "./header.module.css";
 
 const Header = () => {
   return (
-    <header className={`${styles.header} fixed-top w-100 bg-light`}>
+    <div className={`${styles.header} fixed-top w-100 bg-light`}>
       <Logo />
 
       <div className={styles.headerText}>
@@ -19,7 +19,7 @@ const Header = () => {
           alt="logo SC - Consulting"
         />
       </div>
-    </header>
+    </div>
   );
 };
 export default Header;

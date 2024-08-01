@@ -9,9 +9,7 @@
   --color-menu: #626262;
   --color-text: #464646;
   --color-title: #00285a;
-}
-html {
-  font-size: 62.5%;
+  -webkit-text-size-adjust: 100%;
 }
 
 * {
@@ -19,48 +17,52 @@ html {
   padding: 0;
   box-sizing: border-box;
 }
+
+html {
+  font-size: 62.5%;
+}
+
 body {
-  background: var(--color-gray);
-  color: var(--color-text);
   font-family: "Roboto", sans-serif;
+  color: var(--color-text);
+  background: var(--color-gray);
+  font-weight: 400;
+  line-height: 1.6;
 }
 
-.app {
-  display: grid;
-  width: 100vw;
-  height: 100vh;
-  grid-template-areas:
-    "header header"
-    "nav  main"
-    "footer footer";
-  grid-template-rows: 12vh auto 10vh;
-  grid-template-columns: 18vw 80vw;
-  column-gap: 2rem;
-  overflow-x: hidden;
-  text-align: center;
+label {
+  font-size: 1.6rem;
+  font-weight: 600;
+  display: inline-block;
 }
 
-/*  HEADER SECTION  */
-.app > header {
-  grid-area: header;
+input,
+select {
+  width: 25rem;
+  padding: 0.8rem 1.2rem;
+  font-size: 1.6rem;
+  font-family: inherit;
+  color: inherit;
+  border: none;
+  border-radius: 5px;
+  background-color: #004b9c85;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/*  ASIDE MENU  */
-.app > nav {
-  grid-area: nav;
-  margin: 3rem;
-}
-/* MAIN SECTION*/
-.app > main {
-  grid-area: main;
-  background: var(--color-sec);
-  margin: 3rem;
-  padding-bottom: 2.5rem;
-  border-radius: 1rem;
+input:focus {
+  outline: none;
+  background-color: #fff;
 }
 
-.app > footer {
-  grid-area: footer;
-  background: var(--color-title);
-  align-self: end;
+.cta:link,
+.cta:visited {
+  display: inline-block;
+  background-color: var(--color-brand--2);
+  color: var(--color-dark--1);
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 600;
+  padding: 1rem 3rem;
+  border-radius: 5px;
 }
