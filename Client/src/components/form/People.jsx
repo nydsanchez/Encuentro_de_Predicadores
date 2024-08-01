@@ -246,5 +246,4 @@ export default function People({ onClose }) {
 }
 People.propTypes = {
   onClose: PropTypes.func.isRequired, // onClose debe ser una función y es requerida
-  isModal: PropTypes.bool.isRequired, // isModal debe ser un booleano y es requerido
 };

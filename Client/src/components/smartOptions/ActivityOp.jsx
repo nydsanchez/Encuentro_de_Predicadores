@@ -7,6 +7,7 @@ function ActivityOp({
   onNewClick,
   onViewClick,
   onPeopleTicketClick,
+
   isViewDisabled,
   isNewDisabled,
   isPeopleTicketDisabled,

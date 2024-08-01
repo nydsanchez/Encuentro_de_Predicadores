@@ -20,27 +20,34 @@ function Registro() {
   const handleShowForm = () => {
     setShowForm(true);
     setIsViewDisabled(true);
+    setIsPeopleTicketDisabled(true);
+  };
+  const handleShowTable = () => {
+    setShowTable(true);
+    setIsNewDisabled(true);
+    setIsPeopleTicketDisabled(true);
   };
   const handleShowPeopleTicket = () => {
     setShowPeopleTicket(true);
-    setIsPeopleTicketDisabled(true);
+    setIsViewDisabled(true);
+    setIsNewDisabled(true);
   };
+
   const handleClosePeopleTicket = () => {
     setShowPeopleTicket(false);
-    setIsPeopleTicketDisabled(false);
+    setIsViewDisabled(false);
+    setIsNewDisabled(false);
   };
   const handleCloseForm = () => {
     setShowForm(false);
     setIsViewDisabled(false);
+    setIsPeopleTicketDisabled(false);
   };
 
-  const handleShowTable = () => {
-    setShowTable(true);
-    setIsNewDisabled(true);
-  };
   const handleCloseTable = () => {
     setShowTable(false);
     setIsNewDisabled(false);
+    setIsPeopleTicketDisabled(false);
   };
   return (
     <div className={styles.page_new}>

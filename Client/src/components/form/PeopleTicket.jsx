@@ -22,6 +22,7 @@ export default function PeopleTicket({ onClose }) {
     phone: "",
     genre: "",
     ChurchId: "",
+    id_ticket: 0,
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -80,6 +81,7 @@ export default function PeopleTicket({ onClose }) {
       phone: "",
       genre: "",
       ChurchId: "",
+      id_ticket: 0,
     });
     setErrors({});
   }
@@ -226,7 +228,17 @@ export default function PeopleTicket({ onClose }) {
               onChange={handleSelectChurchChange}
             />
           </div>
-          <div></div>
+
+          <div className={styles.section_divPar}>
+            <label htmlFor="id_ticket">Número de ticket:</label>
+            <input
+              type="number"
+              name="id_ticket"
+              id="id_ticket"
+              value={newData.id_ticket}
+              onChange={handleChange}
+            />
+          </div>
         </div>
         <div className={styles.section_buttons}>
           <button type="submit" className={styles.button_main}>
@@ -244,7 +256,6 @@ export default function PeopleTicket({ onClose }) {
     </div>
   );
 }
-People.propTypes = {
+PeopleTicket.propTypes = {
   onClose: PropTypes.func.isRequired, // onClose debe ser una función y es requerida
-  isModal: PropTypes.bool.isRequired, // isModal debe ser un booleano y es requerido
 };
