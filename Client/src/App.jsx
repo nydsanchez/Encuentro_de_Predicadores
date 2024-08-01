@@ -7,12 +7,14 @@ import NewPerson from "./Pages/People/NewPerson";
 import PeopleList from "./Pages/People/PeopleList";
 import NewTicket from "./Pages/Tickets/NewTicket";
 import TicketList from "./Pages/Tickets/TicketList";
+import Registro from "./Pages/registro";
 
 function App() {
   return (
     <Routes>
       <Route path="/home" element={<Home />} />
       <Route path="*" element={<PageNotFound />} />
+      <Route path="/registro/" element={<Registro />} />
       <Route path="/registro/congregacion" element={<NewChurches />} />
       <Route path="/registro/persona" element={<NewPerson />} />
       <Route path="/registro/ticket" element={<NewTicket />} />
