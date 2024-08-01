@@ -1,127 +1,82 @@
-.grid_container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  overflow: hidden;
-  border-radius: 11px;
-  background: #fff;
-}
+.form {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
 
-.subtitle {
-  font-size: 2.42rem;
-  font-family: "open sans" sans-serif;
-  text-align: right;
-  margin-bottom: 1.7rem;
-}
-.grid_container_imgPeople {
-  background-image: linear-gradient(to right bottom, #004c9c4d, #00285a4d),
-    url("/people.jpg");
-  background-size: cover;
-  background-position: bottom center;
-}
-
-.grid_container_text {
-  padding: 3rem;
-}
-
-.grid_container_text > h3 {
-  font-size: 2.4rem;
-  font-family: "open sans" sans-serif;
-  margin: 0.7rem 0;
-  font-weight: 300;
-  letter-spacing: 0;
-  line-height: 1.42857143;
-  text-align: left;
-}
-
-.grid_container_text > p {
-  font-size: 1.5rem;
-  line-height: 1.02;
-  margin-bottom: 3.6rem;
-  text-align: left;
-}
-
-.peopleform {
-  display: grid;
-  grid-template-columns: 15vw 15vw;
-  column-gap: 4.5rem;
+  background: var(--color-sec);
   position: relative;
+  margin: 2rem auto;
+  width: 70rem;
   height: auto;
-  margin-bottom: 4rem;
+  padding: 2rem;
+  border-radius: 1.5rem;
 }
 
-.peopleform label {
-  display: block;
-  font-size: 1.4rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  text-align: left;
-}
-
-.peopleform input,
-.peopleform select,
-.peopleform textarea {
+.section {
+  display: flex;
   width: 100%;
-  padding: 1.2rem;
-  font-size: 1.4rem;
-  font-family: inherit;
-  color: inherit;
-  border: none;
-  background: #004b9c85;
-  border-radius: 9px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  margin-top: 1.5rem;
 }
 
-.formButton {
+.section > div {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 50rem;
+}
+
+.section_divPar > label,
+.section_divImpar > label {
+  align-self: flex-start;
+  padding-left: 4rem;
+}
+
+.section_buttons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: 66rem;
+}
+.form > button {
   position: absolute;
-  bottom: -6.5rem;
-  right: 50%;
-  font-family: inherit;
-}
-
-.formButton > .btn_form {
-  background: #004b9c85;
-  color: #fff;
-  font-size: 1.5rem;
-  padding: 1.2rem;
-  border-radius: 10px;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: background 0.5s;
-  margin-left: 0.5rem;
-}
-
-.formButton > .btn_x {
-  color: #000;
-  background: none;
-  border: 1px solid var(--color-menu);
-}
-
-.formButton > .btn_form:hover {
-  background: var(--bg-color-active);
-  color: #fff;
-  border: 1px solid var(--bg-color-active);
-}
-
-.modalMain {
-  position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.685);
-  z-index: 10;
+  right: 0;
+  width: 35px;
+  height: 30px;
+  border-radius: 10px;
+  color: var(--color-title);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1.6rem;
+  font-weight: bold;
 }
-
-.modalContent {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-
-  width: 70%;
+.form h2 {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 1.2rem;
+  color: var(--color-title);
 }
-
-.subtitleModal {
-  display: none;
+.button_main,
+.button_sec {
+  background: #004b9c85;
+  color: var(--color-text);
+  width: 12rem;
+  height: 5rem;
+  font-size: 1.6rem;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.button_main {
+  border: none;
+}
+.button_sec {
+  background: transparent;
+  border-color: #004b9c85;
+}
+.error {
+  font-size: 1.2rem;
+  color: var(--color-brand--1);
 }

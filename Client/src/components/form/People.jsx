@@ -9,7 +9,7 @@ import SelectChurch from "../select/selectChurch";
 import validation from "../../js/validationPeopleForm";
 import styles from "./peopleform.module.css";
 
-export default function People({ onClose, isModal }) {
+export default function People({ onClose }) {
   const dispatch = useDispatch();
 
   const ERROR = useSelector((state) => state.error);
@@ -25,7 +25,7 @@ export default function People({ onClose, isModal }) {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errors, setErrors] = useState({});
+  //const [errors, setErrors] = useState({});
 
   useEffect(() => {
     dispatch(retrieveData("churches"));
@@ -66,9 +66,7 @@ export default function People({ onClose, isModal }) {
     if (Object.keys(validationErrors).length === 0) {
       dispatch(createRecord("people", newData));
       setIsSubmitted(true);
-      if (isModal) {
-        onClose();
-      }
+
       handleClean();
     }
   };
@@ -87,178 +85,163 @@ export default function People({ onClose, isModal }) {
   }
 
   return (
-    <main>
-      <div className={styles.grid_container}>
-        <div className={styles.grid_container_text}>
-          <h3>Registro de Personas</h3>
+    <div className={styles.form}>
+      <h2>Registro de Personas</h2>
+      <button onClick={onClose}>X</button>
+      <form onSubmit={handleSubmit}>
+        <div className={styles.section}>
+          <div className={styles.section_divImpar}>
+            <label htmlFor="person_id">Número de cedula:</label>
+            <MaskedInput
+              mask={[
+                /\d/,
+                /\d/,
+                /\d/,
+                "-",
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+                "-",
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+                /[A-Za-z]/,
+              ]}
+              guide={false}
+              value={newData.person_id}
+              onChange={handleChange}
+              name="person_id"
+              id="person_id"
+              placeholder="123-456789-0123A"
+            />
+          </div>
 
-          <form className={styles.peopleform} onSubmit={handleSubmit}>
-            <div className={styles.miembros_info_personal}>
-              <label htmlFor="person_id">Número de cedula:</label>
-
-              <MaskedInput
-                mask={[
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  "-",
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  "-",
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /[A-Za-z]/,
-                ]}
-                guide={false}
-                value={newData.person_id}
-                onChange={handleChange}
-                name="person_id"
-                id="person_id"
-                placeholder="123-456789-0123A"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="name">Nombre Completo:</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                value={newData.name}
-                onChange={handleChange}
-              />
-              {errors.e1 ? (
-                <p className={styles.error_msg}>{errors.e1}</p>
-              ) : (
-                <p>&nbsp;</p>
-              )}
-            </div>
-            <div className={styles.miembros_info_personal}>
-              <label htmlFor="state">Departamento:</label>
-              <select
-                name="state"
-                id="state"
-                value={newData.state}
-                onChange={handleChange}
-              >
-                <option value="">Seleccione una opción</option>
-                <option value="Boaco">Boaco</option>
-                <option value="Carazo">Carazo</option>
-                <option value="Chinandega">Chinandega</option>
-                <option value="Chontales">Chontales</option>
-                <option value="Esteli">Estelí</option>
-                <option value="Granada">Granada</option>
-                <option value="Jinotega">Jinotega</option>
-                <option value="Leon">León</option>
-                <option value="Madriz">Madriz</option>
-                <option value="Managua">Managua</option>
-                <option value="Masaya">Masaya</option>
-                <option value="Matagalpa">Matagalpa</option>
-                <option value="Nueva Segovia">Nueva Segovia</option>
-                <option value="Rivas">Rivas</option>
-                <option value="Rio San Juan">Río San Juan</option>
-                <option value="RACCN">Región Autonoma del Caribe Norte</option>
-                <option value="RACCS">Región Autonoma del Caribe Sur</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="address">Dirección:</label>
-              <input
-                type="text"
-                name="address"
-                id="address"
-                value={newData.address}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="phone">No. Teléfono/celular:</label>
-
-              <MaskedInput
-                mask={[
-                  "(",
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  ")",
-                  "-",
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  "-",
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                ]}
-                guide={false}
-                value={newData.phone}
-                onChange={handleChange}
-                name="phone"
-                id="phone"
-                placeholder="(505)-9999-9999"
-              />
-            </div>
-            <div>
-              <label htmlFor="genre">Género:</label>
-              <select
-                name="genre"
-                id="genre"
-                value={newData.genre}
-                onChange={handleChange}
-              >
-                <option value="">Seleccione una opción</option>
-                <option value="Femenino">Femenino</option>
-                <option value="Masculino">Masculino</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="ChurchId">Congregación:</label>
-              <SelectChurch
-                selectedChurchId={newData.ChurchId}
-                onChange={handleSelectChurchChange}
-              />
-            </div>
-            <div className={styles.formButton}>
-              <button
-                type="submit"
-                className={styles.btn_form}
-                onClick={onClose}
-              >
-                {isModal ? (
-                  "Guardar y cerrar"
-                ) : (
-                  <>
-                    <i className="bi bi-floppy"></i> Guardar
-                  </>
-                )}
-              </button>
-              <button
-                type="button"
-                className={`${styles.btn_form} ${styles.btn_x}`}
-                onClick={() => {
-                  handleClean(); // Llama a handleClearData después de confirmar
-                }}
-              >
-                <i className="bi bi-x-lg"></i> Borrar datos
-              </button>
-            </div>
-          </form>
+          <div className={styles.section_divPar}>
+            <label htmlFor="name">Nombre Completo:</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value={newData.name}
+              onChange={handleChange}
+            />
+          </div>
         </div>
-        <div
-          className={styles.grid_container_imgPeople}
-          role="img"
-          aria-label="imagen de personas"
-        ></div>
-      </div>
-    </main>
+
+        <div className={styles.section}>
+          <div className={styles.section_divImpar}>
+            <label htmlFor="state">Departamento:</label>
+            <select
+              name="state"
+              id="state"
+              value={newData.state}
+              onChange={handleChange}
+            >
+              <option value="">Seleccione una opción</option>
+              <option value="Boaco">Boaco</option>
+              <option value="Carazo">Carazo</option>
+              <option value="Chinandega">Chinandega</option>
+              <option value="Chontales">Chontales</option>
+              <option value="Esteli">Estelí</option>
+              <option value="Granada">Granada</option>
+              <option value="Jinotega">Jinotega</option>
+              <option value="Leon">León</option>
+              <option value="Madriz">Madriz</option>
+              <option value="Managua">Managua</option>
+              <option value="Masaya">Masaya</option>
+              <option value="Matagalpa">Matagalpa</option>
+              <option value="Nueva Segovia">Nueva Segovia</option>
+              <option value="Rivas">Rivas</option>
+              <option value="Rio San Juan">Río San Juan</option>
+              <option value="RACCN">Región Autonoma del Caribe Norte</option>
+              <option value="RACCS">Región Autonoma del Caribe Sur</option>
+            </select>
+          </div>
+          <div className={styles.section_divPar}>
+            <label htmlFor="address">Dirección:</label>
+            <input
+              type="text"
+              name="address"
+              id="address"
+              value={newData.address}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+
+        <div className={styles.section}>
+          <div className={styles.section_divImpar}>
+            <label htmlFor="phone">No. Teléfono/celular:</label>
+
+            <MaskedInput
+              mask={[
+                "(",
+                /\d/,
+                /\d/,
+                /\d/,
+                ")",
+                "-",
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+                "-",
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+              ]}
+              guide={false}
+              value={newData.phone}
+              onChange={handleChange}
+              name="phone"
+              id="phone"
+              placeholder="(505)-9999-9999"
+            />
+          </div>
+          <div className={styles.section_divPar}>
+            <label htmlFor="genre">Género:</label>
+            <select
+              name="genre"
+              id="genre"
+              value={newData.genre}
+              onChange={handleChange}
+            >
+              <option value="">Seleccione una opción</option>
+              <option value="Femenino">Femenino</option>
+              <option value="Masculino">Masculino</option>
+            </select>
+          </div>
+        </div>
+
+        <div className={styles.section}>
+          <div className={styles.section_divImpar}>
+            <label htmlFor="ChurchId">Congregación:</label>
+            <SelectChurch
+              selectedChurchId={newData.ChurchId}
+              onChange={handleSelectChurchChange}
+            />
+          </div>
+          <div></div>
+        </div>
+        <div className={styles.section_buttons}>
+          <button type="submit" className={styles.button_main}>
+            Guardar
+          </button>
+          <button
+            type="button"
+            className={styles.button_sec}
+            onClick={handleClean}
+          >
+            Borrar
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
 People.propTypes = {
