@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import MaskedInput from "react-text-mask";
 import SelectChurch from "../select/selectChurch";
 import validation from "../../js/validationPeopleForm";
-import styles from "./peopleform.module.css";
+import styles from "./form.module.css";
 
 export default function PeopleTicket({ onClose }) {
   const dispatch = useDispatch();

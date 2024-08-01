@@ -6,7 +6,7 @@ import MaskedInput from "react-text-mask";
 import validation from "../../js/validationChurchForm";
 import styles from "./form.module.css";
 
-export default function Church() {
+export default function Church({ onClose }) {
   const dispatch = useDispatch();
   const ERROR = useSelector((state) => state.error);
 
@@ -58,116 +58,108 @@ export default function Church() {
   }
 
   return (
-    <main>
-      <div className={styles.grid_container_2col}>
-        <div className={styles.grid_container_text}>
-          <h3>Registro de Congregaciones</h3>
-          <p>
-            Completa los datos de la congregación para comenzar a gestionar a
-            los participantes de las actividades.
-          </p>
-
-          <form className={styles.formChurch} onSubmit={handleSubmit}>
-            <div className={styles.miembros_info_personal}>
-              <label htmlFor="name">Nombre de la congregación:</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                value={newData.name}
-                onChange={handleChange}
-                placeholder="IDC ..."
-              />{" "}
-              {errors.name && <p className={styles.error}>{errors.name}</p>}
-            </div>
-            <div className={styles.miembros_info_personal}>
-              <label htmlFor="state">Departamento:</label>
-              <select
-                name="state"
-                id="state"
-                value={newData.state}
-                onChange={handleChange}
-              >
-                <option value="">Seleccione una opción</option>
-                <option value="Boaco">Boaco</option>
-                <option value="Carazo">Carazo</option>
-                <option value="Chinandega">Chinandega</option>
-                <option value="Chontales">Chontales</option>
-                <option value="Esteli">Estelí</option>
-                <option value="Granada">Granada</option>
-                <option value="Jinotega">Jinotega</option>
-                <option value="Leon">León</option>
-                <option value="Madriz">Madriz</option>
-                <option value="Managua">Managua</option>
-                <option value="Masaya">Masaya</option>
-                <option value="Matagalpa">Matagalpa</option>
-                <option value="Nueva Segovia">Nueva Segovia</option>
-                <option value="Rivas">Rivas</option>
-                <option value="Rio San Juan">Río San Juan</option>
-                <option value="RACCN">Región Autonoma del Caribe Norte</option>
-                <option value="RACCS">Región Autonoma del Caribe Sur</option>
-              </select>
-              {errors.state && <p className={styles.error}>{errors.state}</p>}
-            </div>
-            <div className={styles.miembros_info_personal}>
-              <label htmlFor="address">Dirección de la congregación</label>
-              <input
-                type="text"
-                name="address"
-                id="address"
-                value={newData.address}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className={styles.miembros_info_personal}>
-              <label htmlFor="phone">Teléfono de la congregación</label>
-              <MaskedInput
-                mask={[
-                  "(",
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  ")",
-                  "-",
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  "-",
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                ]}
-                guide={false}
-                value={newData.phone || ""}
-                onChange={handleChange}
-                name="phone"
-                id="phone"
-                placeholder="(505)-9999-9999"
-              />
-            </div>
-            <div className={styles.formButton}>
-              <button type="submit" className={styles.btn_form}>
-                <i className="bi bi-floppy"></i> Guardar
-              </button>
-              <button
-                type="button"
-                className={`${styles.btn_form} ${styles.btn_x}`}
-                onClick={handleClean}
-              >
-                <i className="bi bi-x-lg"></i> Borrar datos
-              </button>
-            </div>
-          </form>
+    <div className={styles.form}>
+      <h2>Registro de Congregaciones</h2>
+      <button onClick={onClose}>X</button>
+      <form onSubmit={handleSubmit}>
+        <div className={styles.section}>
+          <div className={styles.miembros_info_personal}>
+            <label htmlFor="name">Nombre de la congregación:</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value={newData.name}
+              onChange={handleChange}
+              placeholder="IDC ..."
+            />{" "}
+            {errors.name && <p className={styles.error}>{errors.name}</p>}
+          </div>
+          <div className={styles.miembros_info_personal}>
+            <label htmlFor="state">Departamento:</label>
+            <select
+              name="state"
+              id="state"
+              value={newData.state}
+              onChange={handleChange}
+            >
+              <option value="">Seleccione una opción</option>
+              <option value="Boaco">Boaco</option>
+              <option value="Carazo">Carazo</option>
+              <option value="Chinandega">Chinandega</option>
+              <option value="Chontales">Chontales</option>
+              <option value="Esteli">Estelí</option>
+              <option value="Granada">Granada</option>
+              <option value="Jinotega">Jinotega</option>
+              <option value="Leon">León</option>
+              <option value="Madriz">Madriz</option>
+              <option value="Managua">Managua</option>
+              <option value="Masaya">Masaya</option>
+              <option value="Matagalpa">Matagalpa</option>
+              <option value="Nueva Segovia">Nueva Segovia</option>
+              <option value="Rivas">Rivas</option>
+              <option value="Rio San Juan">Río San Juan</option>
+              <option value="RACCN">Región Autonoma del Caribe Norte</option>
+              <option value="RACCS">Región Autonoma del Caribe Sur</option>
+            </select>
+            {errors.state && <p className={styles.error}>{errors.state}</p>}
+          </div>
         </div>
-        <div
-          className={styles.grid_container_imgChurch}
-          role="img"
-          aria-label="foto de Iglesia de Cristo"
-        ></div>
-      </div>
-    </main>
+        <div className={styles.section}>
+          <div className={styles.miembros_info_personal}>
+            <label htmlFor="address">Dirección de la congregación</label>
+            <input
+              type="text"
+              name="address"
+              id="address"
+              value={newData.address}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className={styles.miembros_info_personal}>
+            <label htmlFor="phone">Teléfono de la congregación</label>
+            <MaskedInput
+              mask={[
+                "(",
+                /\d/,
+                /\d/,
+                /\d/,
+                ")",
+                "-",
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+                "-",
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+              ]}
+              guide={false}
+              value={newData.phone || ""}
+              onChange={handleChange}
+              name="phone"
+              id="phone"
+              placeholder="(505)-9999-9999"
+            />
+          </div>
+        </div>
+
+        <div className={styles.section_buttons}>
+          <button type="submit" className={styles.button_main}>
+            Guardar
+          </button>
+          <button
+            type="button"
+            className={styles.button_sec}
+            onClick={handleClean}
+          >
+            Borrar datos
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }

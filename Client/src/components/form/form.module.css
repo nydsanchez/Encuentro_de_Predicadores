@@ -1,124 +1,86 @@
-.grid_container {
-  display: grid;
-  grid-template-columns: 1fr;
-  overflow: hidden;
-  border-radius: 11px;
-  background: #fff;
-}
-
-.grid_container_2col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  overflow: hidden;
-  border-radius: 11px;
-  background: #fff;
-}
-
-.grid_container_imgChurch {
-  background-image: linear-gradient(to right bottom, #004c9c4d, #00285a4d),
-    url("/church-ver2.jpg");
-  background-size: cover;
-  background-position: bottom center;
-}
-
-.subtitle {
-  font-size: 2.42rem;
-  font-family: "open sans" sans-serif;
-  text-align: right;
-  margin-bottom: 1.7rem;
-}
-
-.grid_container_text {
-  padding: 3rem;
-}
-
-.grid_container_text > h3 {
-  font-size: 2.4rem;
-  font-family: "open sans" sans-serif;
-  margin: 0.7rem 0;
-  font-weight: 300;
-  letter-spacing: 0;
-  line-height: 1.42857143;
-  text-align: left;
-}
-
-.grid_container_text > p {
-  font-size: 1.5rem;
-  line-height: 1.02;
-  margin-bottom: 3.6rem;
-  text-align: left;
-}
-
-.formChurch {
+.form {
   display: flex;
   flex-flow: column;
-  align-items: flex-start;
-  gap: 2rem;
-  height: auto;
-  margin-bottom: 5rem;
+  justify-content: center;
+
+  background: var(--color-sec);
   position: relative;
-}
-.formEvento {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 4.5rem;
-  row-gap: 1.5rem;
-}
-
-.formChurch label {
-  display: inline-block;
-  font-size: 1.4rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  width: 20rem;
+  margin: 2rem auto;
+  width: 70rem;
+  height: auto;
+  padding: 2rem;
+  border-radius: 1.5rem;
 }
 
-.formChurch input,
-.formChurch select,
-.formChurch textarea {
-  width: 25rem;
-  padding: 1.2rem;
-  font-size: 1.4rem;
-  font-family: inherit;
-  color: inherit;
-  border: none;
-  background: #004b9c85;
-  border-radius: 9px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+.form__ticket {
+  margin: 5rem auto;
 }
 
-.formDate {
+.section {
   display: flex;
-  gap: 2.4rem;
-  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 1.5rem;
 }
 
-.formButton {
-  align-self: center;
+.section > div {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 50rem;
+}
+
+.section_divPar > label,
+.section_divImpar > label {
+  align-self: flex-start;
+  padding-left: 4rem;
+}
+
+.section_buttons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: 66rem;
+}
+.form > button {
   position: absolute;
-  bottom: -8rem;
-}
-
-.formButton > .btn_form {
-  background: #004b9c85;
-  color: #fff;
-  font-size: 1.5rem;
-  padding: 1.2rem;
+  top: 0;
+  right: 0;
+  width: 35px;
+  height: 30px;
   border-radius: 10px;
-  border: 1px solid transparent;
+  color: var(--color-title);
+  background: transparent;
+  border: none;
   cursor: pointer;
-  transition: background 0.5s;
-  margin-left: 0.5rem;
+  transition: all 0.3s;
+  font-size: 1.6rem;
+  font-weight: bold;
 }
-
-.formButton > .btn_x {
-  color: #000;
-  background: none;
-  border: 1px solid var(--color-menu);
+.form h2 {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 1.2rem;
+  color: var(--color-title);
 }
-
-.formButton > .btn_form:hover {
-  background: var(--bg-color-active);
-  color: #fff;
-  border: 1px solid var(--bg-color-active);
+.button_main,
+.button_sec {
+  background: #004b9c85;
+  color: var(--color-text);
+  width: 12rem;
+  height: 5rem;
+  font-size: 1.6rem;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.button_main {
+  border: none;
+}
+.button_sec {
+  background: transparent;
+  border-color: #004b9c85;
+}
+.error {
+  font-size: 1.2rem;
+  color: var(--color-brand--1);
 }

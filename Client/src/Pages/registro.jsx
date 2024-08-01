@@ -5,48 +5,69 @@ import OptAct from "../components/smartOptions/ActivityOp";
 import Footer from "../components/footer/Footer";
 import People from "../components/form/People";
 import Church from "../components/form/Church";
+import Ticket from "../components/form/Ticket";
 import PeopleTicket from "../components/form/PeopleTicket";
 import styles from "../css/nuevo.module.css";
 
 function Registro() {
-  const [showForm, setShowForm] = useState(false);
-  const [showTable, setShowTable] = useState(false);
+  const [showPeople, setShowPeople] = useState(false);
+  const [showChurch, setShowChurch] = useState(false);
+  const [showTicket, setShowTicket] = useState(false);
   const [showPeopleTicket, setShowPeopleTicket] = useState(false);
 
-  const [isViewDisabled, setIsViewDisabled] = useState(false);
-  const [isNewDisabled, setIsNewDisabled] = useState(false);
+  const [isPeopleDisabled, setIsPeopleDisabled] = useState(false);
+  const [isChurchDisabled, setIsChurchDisabled] = useState(false);
+  const [isTicketDisabled, setIsTicketDisabled] = useState(false);
   const [isPeopleTicketDisabled, setIsPeopleTicketDisabled] = useState(false);
 
-  const handleShowForm = () => {
-    setShowForm(true);
-    setIsViewDisabled(true);
+  const handleShowPeople = () => {
+    setShowPeople(true);
+    setIsChurchDisabled(true);
+    setIsTicketDisabled(true);
     setIsPeopleTicketDisabled(true);
   };
-  const handleShowTable = () => {
-    setShowTable(true);
-    setIsNewDisabled(true);
+  const handleShowChurch = () => {
+    setShowChurch(true);
+    setIsPeopleDisabled(true);
+    setIsTicketDisabled(true);
+    setIsPeopleTicketDisabled(true);
+  };
+  const handleShowTicket = () => {
+    setShowTicket(true);
+    setIsChurchDisabled(true);
+    setIsPeopleDisabled(true);
     setIsPeopleTicketDisabled(true);
   };
   const handleShowPeopleTicket = () => {
     setShowPeopleTicket(true);
-    setIsViewDisabled(true);
-    setIsNewDisabled(true);
+    setIsChurchDisabled(true);
+    setIsPeopleDisabled(true);
+    setIsTicketDisabled(true);
   };
 
   const handleClosePeopleTicket = () => {
     setShowPeopleTicket(false);
-    setIsViewDisabled(false);
-    setIsNewDisabled(false);
+    setIsChurchDisabled(false);
+    setIsPeopleDisabled(false);
+    setIsTicketDisabled(false);
   };
-  const handleCloseForm = () => {
-    setShowForm(false);
-    setIsViewDisabled(false);
+  const handleCloseTicket = () => {
+    setShowTicket(false);
+    setIsChurchDisabled(false);
+    setIsPeopleDisabled(false);
+    setIsPeopleTicketDisabled(false);
+  };
+  const handleClosePeople = () => {
+    setShowPeople(false);
+    setIsChurchDisabled(false);
+    setIsTicketDisabled(false);
     setIsPeopleTicketDisabled(false);
   };
 
-  const handleCloseTable = () => {
-    setShowTable(false);
-    setIsNewDisabled(false);
+  const handleCloseChurch = () => {
+    setShowChurch(false);
+    setIsPeopleDisabled(false);
+    setIsTicketDisabled(false);
     setIsPeopleTicketDisabled(false);
   };
   return (
@@ -59,16 +80,19 @@ function Registro() {
       </aside>
       <main className={styles.page_new_MainSection}>
         <OptAct
-          onNewClick={handleShowForm}
-          onViewClick={handleShowTable}
+          onPeopleClick={handleShowPeople}
+          onChurchClick={handleShowChurch}
+          onTicketClick={handleShowTicket}
           onPeopleTicketClick={handleShowPeopleTicket}
-          isViewDisabled={isViewDisabled}
-          isNewDisabled={isNewDisabled}
+          isChurchDisabled={isChurchDisabled}
+          isPeopleDisabled={isPeopleDisabled}
+          isTicketDisabled={isTicketDisabled}
           isPeopleTicketDisabled={isPeopleTicketDisabled}
         />
-        {showForm && <People onClose={handleCloseForm} />}
-        {showTable && <Church onClose={handleCloseTable} />}
+        {showPeople && <People onClose={handleClosePeople} />}
+        {showChurch && <Church onClose={handleCloseChurch} />}
         {showPeopleTicket && <PeopleTicket onClose={handleClosePeopleTicket} />}
+        {showTicket && <Ticket onClose={handleCloseTicket} />}
       </main>
       <footer className={styles.page_new_footer}>
         <Footer />

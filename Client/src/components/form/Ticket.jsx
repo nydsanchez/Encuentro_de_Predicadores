@@ -5,7 +5,7 @@ import { createRecord } from "../../redux/actions";
 import SelectPeople from "../select/selectPeople";
 import styles from "./form.module.css";
 
-export default function Ticket() {
+export default function Ticket({ onClose }) {
   const dispatch = useDispatch();
   const ERROR = useSelector((state) => state.error);
 
@@ -29,16 +29,18 @@ export default function Ticket() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewData({ ...newData, [name]: value.toUppercase() });
+    setNewData({ ...newData, [name]: value });
   };
 
   const handleSelectPersonChange = (id) => {
     setNewData({ ...newData, personId: id });
+    setErrors(validation({ ...newData, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const validationErrors = validation(newData);
+    setErrors(validationErrors);
     dispatch(createRecord("tickets", newData));
     setIsSubmitted(true);
     handleClean();
@@ -49,51 +51,48 @@ export default function Ticket() {
       id_ticket: 0,
       personId: "",
     });
+    setErrors({});
   }
 
   return (
-    <main>
-      <div className={styles.grid_container}>
-        <div className={styles.grid_container_text}>
-          <h3>Registro de Tickets</h3>
+    <div className={`${styles.form} ${styles.form__ticket}`}>
+      <h2>Registro de Tickets</h2>
+      <button onClick={onClose}>X</button>
+      <form onSubmit={handleSubmit}>
+        <div className={styles.section}>
+          <div>
+            <label htmlFor="id_ticket">Número de ticket:</label>
+            <input
+              type="text"
+              name="id_ticket"
+              id="id_ticket"
+              value={newData.id_ticket}
+              onChange={handleChange}
+            />
+          </div>
 
-          <form className={styles.formChurch} onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="id_ticket">Número de ticket:</label>
-              <input
-                type="text"
-                name="id_ticket"
-                id="id_ticket"
-                value={newData.id_ticket}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="personId">Asignada a:</label>
-              <SelectPeople
-                selectedPersonId={newData.personId}
-                onChange={handleSelectPersonChange}
-              />
-            </div>
-
-            <div className={styles.formButton}>
-              <button type="submit" className={styles.btn_form}>
-                <i className="bi bi-floppy"></i>Guardar
-              </button>
-              <button
-                type="button"
-                className={`${styles.btn_form} ${styles.btn_x}`}
-                onClick={() => {
-                  handleClean();
-                }}
-              >
-                <i className="bi bi-x-lg"></i>borrar datos
-              </button>
-            </div>
-          </form>
+          <div>
+            <label htmlFor="personId">Asignada a:</label>
+            <SelectPeople
+              selectedPersonId={newData.personId}
+              onChange={handleSelectPersonChange}
+            />
+          </div>
         </div>
-      </div>
-    </main>
+
+        <div className={styles.section_buttons}>
+          <button type="submit" className={styles.button_main}>
+            Guardar
+          </button>
+          <button
+            type="button"
+            className={styles.button_sec}
+            onClick={handleClean}
+          >
+            Borrar
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }

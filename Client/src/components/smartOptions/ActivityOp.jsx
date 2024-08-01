@@ -4,24 +4,26 @@ import styles from "./Smart.module.css";
 import Btn from "../button/Buttons";
 
 function ActivityOp({
-  onNewClick,
-  onViewClick,
+  onPeopleClick,
+  onChurchClick,
+  onTicketClick,
   onPeopleTicketClick,
 
-  isViewDisabled,
-  isNewDisabled,
+  isChurchDisabled,
+  isPeopleDisabled,
+  isTicketDisabled,
   isPeopleTicketDisabled,
 }) {
   return (
     <div className={styles.band}>
       <div className={styles.crud}>
-        <Btn onClick={onNewClick} disabled={isNewDisabled}>
+        <Btn onClick={onPeopleClick} disabled={isPeopleDisabled}>
           Registro de Persona
         </Btn>
-        <Btn onClick={onViewClick} disabled={isViewDisabled}>
+        <Btn onClick={onChurchClick} disabled={isChurchDisabled}>
           Registro de Congregación
         </Btn>
-        <Btn onClick={onViewClick} disabled={isViewDisabled}>
+        <Btn onClick={onTicketClick} disabled={isTicketDisabled}>
           Registro de Ticket
         </Btn>
         <Btn onClick={onPeopleTicketClick} disabled={isPeopleTicketDisabled}>
@@ -33,11 +35,14 @@ function ActivityOp({
 }
 
 ActivityOp.propTypes = {
-  onNewClick: PropTypes.func.isRequired,
-  onViewClick: PropTypes.func.isRequired,
+  onPeopleClick: PropTypes.func.isRequired,
+  onChurchClick: PropTypes.func.isRequired,
+  onTicketClick: PropTypes.func.isRequired,
   onPeopleTicketClick: PropTypes.func.isRequired,
-  isNewDisabled: PropTypes.bool.isRequired,
-  isViewDisabled: PropTypes.bool.isRequired,
+
+  isPeopleDisabled: PropTypes.bool.isRequired,
+  isChurchDisabled: PropTypes.bool.isRequired,
+  isTicketDisabled: PropTypes.bool.isRequired,
   isPeopleTicketDisabled: PropTypes.bool.isRequired,
 };
 export default ActivityOp;
