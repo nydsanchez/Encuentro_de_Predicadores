@@ -6,6 +6,7 @@ const {
   registerAttendance,
   getTicket,
   updateTicket,
+  getTicketById,
 } = require("../controllers/Ticket");
 
 const {
@@ -26,6 +27,7 @@ const {
 router.post("/church", postChurch);
 router.get("/churches", getAllChurches);
 router.put("/churches/:id", editChurch);
+router.get("/church/id", editChurch);
 
 //Gestión de Personas
 router.post("/person", postPeople);
@@ -35,7 +37,7 @@ router.get("/people/id", getPerson);
 router.put("/people/:id", editPerson);
 
 //Gestión de Tickets
-router.get("/ticket/:id", getTicket);
+router.get("/ticket/id", getTicketById);
 router.get("/tickets", getAllTickets);
 router.post("/ticket", regTicket);
 router.put("/ticket/id", updateTicket);
