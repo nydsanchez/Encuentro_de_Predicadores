@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createRecord } from "../../redux/actions";
-
+import PropTypes from "prop-types";
 import MaskedInput from "react-text-mask";
 import validation from "../../js/validationChurchForm";
 import styles from "./form.module.css";
@@ -41,7 +41,7 @@ export default function Church({ onClose }) {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      dispatch(createRecord("churches", newData));
+      dispatch(createRecord("church", newData));
       setIsSubmitted(true);
       handleClean();
     }
@@ -163,3 +163,7 @@ export default function Church({ onClose }) {
     </div>
   );
 }
+
+Church.propTypes = {
+  onClose: PropTypes.func.isRequired, // onClose debe ser una función y es requerida
+};

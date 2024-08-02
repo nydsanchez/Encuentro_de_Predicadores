@@ -6,6 +6,8 @@ import Registro from "./Pages/registro";
 import Consultas from "./Pages/consultas";
 import Asistencia from "./Pages/asistencia";
 
+import Raffle from "./Pages/raffle";
+
 function App() {
   return (
     <Routes>
@@ -15,7 +17,7 @@ function App() {
       <Route path="/registro" element={<Registro />} />
       <Route path="/consultas" element={<Consultas />} />
       <Route path="/confirmar-asitencia" element={<Asistencia />} />
-      <Route path="/rifa" element={<Asistencia />} />
+      <Route path="/rifa" element={<Raffle />} />
     </Routes>
   );
 }

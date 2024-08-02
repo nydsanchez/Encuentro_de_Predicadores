@@ -1,13 +1,18 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { retrieveData } from "../../redux/actions";
+
 import { FaPencil, FaEye, FaEraser } from "react-icons/fa6";
 
 import styles from "./tablas.module.css";
+import Pagination from "../pagination/Pagination";
 
 function ChurchesTable() {
   const dispatch = useDispatch();
   const churches = useSelector((state) => state.data.churches);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 5;
 
   const handleEdit = (index) => {
     console.log("Edit item at index:", index);
@@ -25,9 +30,18 @@ function ChurchesTable() {
     dispatch(retrieveData("churches"));
   }, [dispatch]);
 
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = churches.slice(indexOfFirstRecord, indexOfLastRecord);
+
   return (
     <main className={styles.container}>
       <h2 className={styles.subtitle}>Lista de Congregaciones</h2>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(churches.length / recordsPerPage)}
+        onPageChange={setCurrentPage}
+      />
       <div className={styles.container_table}>
         <table className={styles.table}>
           <thead>
@@ -38,7 +52,7 @@ function ChurchesTable() {
             </tr>
           </thead>
           <tbody>
-            {churches.map((church, index) => (
+            {currentRecords.map((church, index) => (
               <tr key={index}>
                 <td>{church.church_name}</td>
                 <td>{church.church_state}</td>

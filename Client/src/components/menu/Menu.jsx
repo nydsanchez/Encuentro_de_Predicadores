@@ -36,7 +36,7 @@ function Menu() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/confirmar-asitencia" className="nav-link">
+          <NavLink to="/rifa" className="nav-link">
             <FaTrophy className={styles.iconosMenu} /> Rifa
           </NavLink>
         </li>

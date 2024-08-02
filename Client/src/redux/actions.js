@@ -20,12 +20,9 @@ export const createRecord = (entity, newData) => {
         });
       })
       .catch((error) => {
-        const errorMessage = error.response
-          ? error.response.data
-          : "Error al agregar los datos";
         dispatch({
           type: ERROR,
-          payload: errorMessage,
+          payload: error.response,
         });
       });
   };
@@ -42,10 +39,7 @@ export const retrieveData = (entity) => {
         });
       })
       .catch((error) => {
-        const errorMessage = error.response
-          ? error.response.data
-          : "Error al cargar los datos";
-        dispatch({ type: ERROR, payload: errorMessage });
+        dispatch({ type: ERROR, payload: error.response });
       });
   };
 };
@@ -67,9 +61,8 @@ export const updateData = (entity, newData) => {
         ? error.response.data
         : "Error al actualizar los datos";
       dispatch({
-        type: DATA_FAILURE,
+        type: ERROR,
         payload: errorMessage,
-        success: false,
       });
     }
   };

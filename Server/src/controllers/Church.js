@@ -42,7 +42,7 @@ const postChurch = async (req, res) => {
     } else {
       return res
         .status(200)
-        .json({ message: "Esta congregación ya ha sido registrada" });
+        .json({ message: "Esta congregación ya ha sido registrada", church });
     }
   } catch (error) {
     console.error("Error al registrar la iglesia:", error);
