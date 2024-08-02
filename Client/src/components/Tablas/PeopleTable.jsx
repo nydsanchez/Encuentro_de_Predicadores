@@ -23,18 +23,19 @@ function PeopleTable() {
     // Lógica para eliminar el elemento con el índice proporcionado
     console.log("Delete item at index:", index);
   };
-  console.log(people);
+
   useEffect(() => {
     dispatch(retrieveData("people"));
   }, [dispatch]);
   return (
-    <main>
+    <main className={styles.container}>
       <h2 className={styles.subtitle}>Listado de Personas</h2>
-      <div className={styles.container}>
+      <div className={styles.container_table}>
         <table className={styles.table}>
           <thead>
             <tr>
               <th scope="col">Nombre</th>
+              <th scope="col">Cedula</th>
               <th scope="col">Teléfono</th>
               <th scope="col">Acciones</th>
             </tr>
@@ -43,6 +44,7 @@ function PeopleTable() {
             {people.map((per, index) => (
               <tr key={index}>
                 <td>{per.name}</td>
+                <td>{per.id}</td>
                 <td>{per.phone}</td>
 
                 <td className={styles.actions}>

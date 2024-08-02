@@ -5,56 +5,43 @@ import { FaPencil, FaEye, FaEraser } from "react-icons/fa6";
 
 import styles from "./tablas.module.css";
 
-function TicketTable() {
+function ChurchesTable() {
   const dispatch = useDispatch();
-  const tickets = useSelector((state) => state.data.tickets);
-  const people = useSelector((state) => state.data.people);
+  const churches = useSelector((state) => state.data.churches);
 
   const handleEdit = (index) => {
-    // Lógica para editar el elemento con el índice proporcionado
     console.log("Edit item at index:", index);
   };
 
   const handleViewDetails = (index) => {
-    // Lógica para ver más detalles del elemento con el índice proporcionado
     console.log("View details of item at index:", index);
   };
 
   const handleDelete = (index) => {
-    // Lógica para eliminar el elemento con el índice proporcionado
     console.log("Delete item at index:", index);
   };
-  console.log(tickets);
-  useEffect(() => {
-    dispatch(retrieveData("people"));
-    dispatch(retrieveData("tickets"));
-  }, [dispatch]);
 
-  const getPersonName = (personId) => {
-    const person = people.find((p) => p.id === personId);
-    return person ? person.name : "Desconocido";
-  };
+  useEffect(() => {
+    dispatch(retrieveData("churches"));
+  }, [dispatch]);
 
   return (
     <main className={styles.container}>
-      <h2 className={styles.subtitle}>Listado de Tickets</h2>
+      <h2 className={styles.subtitle}>Lista de Congregaciones</h2>
       <div className={styles.container_table}>
         <table className={styles.table}>
           <thead>
             <tr>
-              <th scope="col">No. Ticket</th>
-              <th scope="col">Estado</th>
-              <th scope="col">Asignado a</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Departamento</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {tickets.map((tkt, index) => (
+            {churches.map((church, index) => (
               <tr key={index}>
-                <td>{tkt.id_ticket}</td>
-                <td>{tkt.state_ticket}</td>
-                <td>{getPersonName(tkt.PersonId)}</td>
-
+                <td>{church.church_name}</td>
+                <td>{church.church_state}</td>
                 <td className={styles.actions}>
                   <button onClick={() => handleEdit(index)}>
                     <FaPencil className={styles.icon_mobile} />
@@ -75,4 +62,4 @@ function TicketTable() {
   );
 }
 
-export default TicketTable;
+export default ChurchesTable;

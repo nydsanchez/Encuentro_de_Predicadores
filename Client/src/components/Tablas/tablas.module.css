@@ -1,4 +1,11 @@
 .container {
+  padding-top: 5rem;
+}
+
+.container_search {
+  padding: 2rem;
+}
+.container_table {
   color: var(--color-text);
   font-family: "Roboto", sans-serif;
   display: flex;
