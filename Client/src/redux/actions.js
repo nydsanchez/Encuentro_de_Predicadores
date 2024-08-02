@@ -1,9 +1,9 @@
 import axios from "axios";
 import {
-  UPDATE_DATA,
-  DATA_FAILURE,
   CREATE_RECORD,
   RETRIEVE_DATA,
+  UPDATE_DATA,
+  SEARCH,
   ERROR,
 } from "./actions-types";
 
@@ -72,5 +72,27 @@ export const updateData = (entity, newData) => {
         success: false,
       });
     }
+  };
+};
+
+export const search = (entity, id) => {
+  return (dispatch) => {
+    axios
+      .get(`${URL}/${entity}/id?id=${id}`)
+      .then((response) => {
+        dispatch({
+          type: SEARCH,
+          payload: { entity: entity, data: response.data },
+        });
+      })
+      .catch((error) => {
+        const errorMessage = error.response
+          ? error.response.data
+          : "Error al obtener los datos";
+        dispatch({
+          type: ERROR,
+          payload: errorMessage,
+        });
+      });
   };
 };

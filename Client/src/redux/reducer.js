@@ -1,10 +1,14 @@
-import { ERROR, CREATE_RECORD, RETRIEVE_DATA } from "./actions-types";
+import { ERROR, CREATE_RECORD, RETRIEVE_DATA, SEARCH } from "./actions-types";
 
 const initialState = {
   data: {
     churches: [],
     tickets: [],
     people: [],
+  },
+  search: {
+    ticket: [],
+    person: [],
   },
   error: null,
 };
@@ -28,10 +32,16 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         data: { ...state.data, [entity]: data },
-        error: {
-          ...state.error,
-          error: null,
-        },
+        error: null,
+      };
+    }
+
+    case SEARCH: {
+      const { entity, data } = payload;
+      return {
+        ...state,
+        search: { ...state.search, [entity]: data },
+        error: null,
       };
     }
 
