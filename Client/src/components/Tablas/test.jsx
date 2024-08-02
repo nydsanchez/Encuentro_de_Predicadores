@@ -12,7 +12,7 @@ function TestComponent() {
     content = (
       <tbody>
         <tr>
-          <td colSpan="4">{ERROR}</td>
+          <td colSpan="4">{ERROR.message}</td>
         </tr>
       </tbody>
     );

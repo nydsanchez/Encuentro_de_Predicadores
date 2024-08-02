@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "./PageNotFound.module.css";
+import styles from "../css/PageNotFound.module.css";
 
 import logo from "/Logo-Hor-BG-BCO.png";
 

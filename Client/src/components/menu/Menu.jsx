@@ -1,6 +1,12 @@
 import { NavLink } from "react-router-dom";
 
-import { FaClipboardList, FaSearch, FaUserCheck } from "react-icons/fa";
+import {
+  FaClipboardList,
+  FaSearch,
+  FaTachometerAlt,
+  FaTrophy,
+  FaUserCheck,
+} from "react-icons/fa";
 
 import styles from "./Menu.module.css";
 
@@ -10,8 +16,7 @@ function Menu() {
       <ul>
         <li>
           <NavLink to="/home" className="nav-link">
-            <i className={`bi bi-speedometer2 ${styles.iconosMenu}`}></i>{" "}
-            Dashboard
+            <FaTachometerAlt className={styles.iconosMenu} /> Dashboard
           </NavLink>
         </li>
         <li>
@@ -22,14 +27,17 @@ function Menu() {
         </li>
         <li>
           <NavLink to="/consultas" className="nav-link">
-            <FaSearch className={styles.iconosMenu} />
-            Consultas
+            <FaSearch className={styles.iconosMenu} /> Consultas
           </NavLink>
         </li>
         <li>
           <NavLink to="/confirmar-asitencia" className="nav-link">
-            <FaUserCheck className={styles.iconosMenu} />
-            Asistencia
+            <FaUserCheck className={styles.iconosMenu} /> Asistencia
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/confirmar-asitencia" className="nav-link">
+            <FaTrophy className={styles.iconosMenu} /> Rifa
           </NavLink>
         </li>
       </ul>

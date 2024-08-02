@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import PageNotFound from "./Pages/notFound/PageNotFound";
-import Home from "./Pages/Home/Home";
+import PageNotFound from "./Pages/PageNotFound";
+import Home from "./Pages/Home";
 
 import Registro from "./Pages/registro";
 import Consultas from "./Pages/consultas";
