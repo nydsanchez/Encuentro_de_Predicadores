@@ -21,13 +21,13 @@ function Menu() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/home" className="nav-link">
+          <NavLink to="/consultas" className="nav-link">
             <FaSearch className={styles.iconosMenu} />
             Consultas
           </NavLink>
         </li>
         <li>
-          <NavLink to="/home" className="nav-link">
+          <NavLink to="/confirmar-asitencia" className="nav-link">
             <FaUserCheck className={styles.iconosMenu} />
             Asistencia
           </NavLink>
