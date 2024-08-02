@@ -18,9 +18,7 @@ export default function Ticket({ onClose }) {
 
   useEffect(() => {
     if (isSubmitted) {
-      alert(
-        ERROR ? `Error: ${ERROR}` : "Congregación registrada exitosamente!"
-      );
+      alert(ERROR ? `Error: ${ERROR}` : "Ticket registrado exitosamente!");
       setIsSubmitted(false);
     }
   }, [ERROR, isSubmitted]);
@@ -41,7 +39,7 @@ export default function Ticket({ onClose }) {
     e.preventDefault();
     const validationErrors = validation(newData);
     setErrors(validationErrors);
-    dispatch(createRecord("tickets", newData));
+    dispatch(createRecord("ticket", newData));
     setIsSubmitted(true);
     handleClean();
   };
@@ -63,7 +61,7 @@ export default function Ticket({ onClose }) {
           <div>
             <label htmlFor="id_ticket">Número de ticket:</label>
             <input
-              type="text"
+              type="number"
               name="id_ticket"
               id="id_ticket"
               value={newData.id_ticket}
