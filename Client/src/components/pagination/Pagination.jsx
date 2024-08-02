@@ -15,7 +15,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
   }
 
   return (
-    <nav>
+    <nav className={styles.container_pagination}>
       <ul className={styles.pagination}>
         {pageNumbers.map((number) => (
           <li key={number} className={styles.pageItem}>

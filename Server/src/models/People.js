@@ -39,7 +39,9 @@ module.exports = (sequelize) => {
           "Matagalpa",
           "Nueva Segovia",
           "Rivas",
-          "Rio San Juan"
+          "Rio San Juan",
+          "RACS",
+          "RACN"
         ),
         allowNull: false,
         validate: {

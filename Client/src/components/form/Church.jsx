@@ -99,8 +99,8 @@ export default function Church({ onClose }) {
               <option value="Nueva Segovia">Nueva Segovia</option>
               <option value="Rivas">Rivas</option>
               <option value="Rio San Juan">Río San Juan</option>
-              <option value="RACCN">Región Autonoma del Caribe Norte</option>
-              <option value="RACCS">Región Autonoma del Caribe Sur</option>
+              <option value="RACN">Región Autonoma del Caribe Norte</option>
+              <option value="RACS">Región Autonoma del Caribe Sur</option>
             </select>
             {errors.state && <p className={styles.error}>{errors.state}</p>}
           </div>

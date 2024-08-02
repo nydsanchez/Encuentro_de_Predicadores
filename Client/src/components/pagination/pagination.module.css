@@ -1,6 +1,10 @@
+.container_pagination {
+  width: 100%;
+}
 .pagination {
   list-style: none;
   display: flex;
+  justify-content: center;
 }
 
 .pageItem button {
@@ -8,4 +12,5 @@
   padding: 0.3rem 0.5rem;
   text-align: center;
   cursor: pointer;
+  margin: auto;
 }
