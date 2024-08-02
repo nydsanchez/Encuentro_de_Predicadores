@@ -1,4 +1,4 @@
-const { Churches } = require("../db");
+const { Churches, People } = require("../db");
 
 const getAllChurches = async (req, res) => {
   try {
@@ -86,8 +86,36 @@ const editChurch = async (req, res) => {
   }
 };
 
+const deleteChurch = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const church = await Churches.findByPk(id);
+
+    // Verificar si la iglesia existe
+    if (!church) {
+      return res.status(404).json({ message: "Iglesia no encontrada" });
+    }
+
+    const peoplechurch = await church.getPeople();
+    // Verificar si hay personas asociadas a la iglesia
+    if (peoplechurch.length > 0) {
+      return res.status(409).json({
+        message: "No se puede eliminar la iglesia, hay personas asociadas",
+      });
+    }
+
+    // Eliminar la iglesia
+    await church.destroy();
+    return res.status(204).send(); // Código 204 No Content para una eliminación exitosa
+  } catch (error) {
+    console.error("Error al eliminar los datos de la congregación:", error);
+    return res.status(500).send("Error interno del servidor");
+  }
+};
+
 module.exports = {
   getAllChurches,
   postChurch,
   editChurch,
+  deleteChurch,
 };

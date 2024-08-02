@@ -4,6 +4,7 @@ import {
   RETRIEVE_DATA,
   UPDATE_DATA,
   SEARCH,
+  DELETE_DATA,
   ERROR,
 } from "./actions-types";
 
@@ -65,6 +66,23 @@ export const updateData = (entity, newData) => {
         payload: errorMessage,
       });
     }
+  };
+};
+
+export const deleteData = (entity, id) => {
+  return (dispatch) => {
+    return axios
+      .delete(`${URL}/${entity}/${id}`)
+      .then(() => {
+        dispatch({ type: DELETE_DATA, payload: id });
+      })
+      .catch((error) => {
+        const errorMessage = error.response
+          ? error.response.data.message
+          : "Error al eliminar los datos";
+        dispatch({ type: ERROR, payload: errorMessage });
+        throw errorMessage;
+      });
   };
 };
 

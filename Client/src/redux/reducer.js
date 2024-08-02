@@ -1,4 +1,10 @@
-import { ERROR, CREATE_RECORD, RETRIEVE_DATA, SEARCH } from "./actions-types";
+import {
+  ERROR,
+  CREATE_RECORD,
+  RETRIEVE_DATA,
+  SEARCH,
+  DELETE_DATA,
+} from "./actions-types";
 
 const initialState = {
   data: {
@@ -32,6 +38,19 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         data: { ...state.data, [entity]: data },
+        error: null,
+      };
+    }
+
+    case DELETE_DATA: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          churches: state.data.churches.filter(
+            (church) => church.id !== payload
+          ),
+        },
         error: null,
       };
     }

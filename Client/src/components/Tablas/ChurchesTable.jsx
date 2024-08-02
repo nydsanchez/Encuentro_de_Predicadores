@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { retrieveData } from "../../redux/actions";
+import { retrieveData, deleteData } from "../../redux/actions";
 
 import { FaPencil, FaEye, FaEraser } from "react-icons/fa6";
 
@@ -22,8 +22,22 @@ function ChurchesTable() {
     console.log("View details of item at index:", index);
   };
 
-  const handleDelete = (index) => {
-    console.log("Delete item at index:", index);
+  const handleDelete = (id) => {
+    console.log(typeof id);
+    if (
+      window.confirm(
+        "¿Está seguro que desea eliminar este registro? La acción no se puede deshacer."
+      )
+    ) {
+      dispatch(deleteData("church", id))
+        .then(() => {
+          dispatch(retrieveData("churches"));
+          window.alert("El registro ha sido borrado");
+        })
+        .catch((error) => {
+          window.alert(`Error al borrar el registro: ${error}`);
+        });
+    }
   };
 
   useEffect(() => {
@@ -63,7 +77,7 @@ function ChurchesTable() {
                   <button onClick={() => handleViewDetails(index)}>
                     <FaEye className={styles.icon_mobile} />
                   </button>
-                  <button onClick={() => handleDelete(index)}>
+                  <button onClick={() => handleDelete(church.id)}>
                     <FaEraser className={styles.icon_mobile} />
                   </button>
                 </td>

@@ -13,6 +13,7 @@ const {
   getAllChurches,
   postChurch,
   editChurch,
+  deleteChurch,
 } = require("../controllers/Church");
 
 const {
@@ -28,6 +29,7 @@ router.post("/church", postChurch);
 router.get("/churches", getAllChurches);
 router.put("/churches/:id", editChurch);
 router.get("/church/id", editChurch);
+router.delete("/church/:id", deleteChurch);
 
 //Gestión de Personas
 router.post("/person", postPeople);
