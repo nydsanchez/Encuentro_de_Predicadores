@@ -1,20 +1,19 @@
 const { Op } = require("sequelize");
 const { Tickets, People } = require("../db");
-const { postPeople } = require("./People");
 
 const regTicket = async (req, res) => {
   try {
-    const { no_ticket, personCedula } = req.body;
+    const { id_ticket, personId } = req.body;
 
-    if (!(no_ticket && personCedula)) {
+    if (!(id_ticket && personId)) {
       return res.status(400).json({ error: "Faltan datos" });
     }
 
-    const ticket = await Tickets.findByPk(no_ticket);
+    const ticket = await Tickets.findByPk(id_ticket);
     if (!ticket) {
       ticket = await Tickets.create({
-        no_ticket,
-        PersonId: personCedula,
+        id_ticket,
+        PersonId: personId,
       });
       return res.status(201).json(ticket);
     } else {
@@ -115,18 +114,18 @@ const updateTicket = async (req, res) => {
   }
 };
 
-const getTicket = async (req, res) => {
+const getTicketById = async (req, res) => {
   try {
-    const { id_ticket } = req.body;
+    const { id } = req.query;
 
-    if (!id_ticket) {
+    if (!id) {
       return res
         .status(400)
         .json({ error: "Debe introducir el numero de ticket" });
     }
 
     // Verificar si el ticket existe
-    const ticket = await Tickets.findByPk(id_ticket, {
+    const ticket = await Tickets.findByPk(id, {
       include: {
         model: People,
         attributes: ["name", "id"],
@@ -180,7 +179,7 @@ const registerAttendance = async (req, res) => {
 module.exports = {
   regTicket,
   getAllTickets,
-  getTicket,
+  getTicketById,
   updateTicket,
   registerAttendance,
 };
