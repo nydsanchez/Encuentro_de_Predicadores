@@ -1,11 +1,20 @@
 import { useSelector } from "react-redux";
 import styles from "./tablas.module.css";
 import Search from "../search/Search";
+import Btn from "../button/Buttons";
+import { useState, useEffect } from "react";
 
 function TestComponent() {
   const ticket = useSelector((state) => state.search.ticket);
   const ERROR = useSelector((state) => state.error);
 
+  const [isDisabledBt, setIsDisabledBt] = useState(true);
+
+  useEffect(() => {
+    if (ERROR && ticket.length > 0) {
+      setIsDisabledBt(true);
+    }
+  }, [ticket, ERROR]);
   let content;
 
   if (ERROR) {
@@ -33,10 +42,15 @@ function TestComponent() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.container_search}>
-        <Search entity={"ticket"} />
-      </div>
       <div className={styles.container_table}>
+        <div className={styles.container_header}>
+          <Search entity={"ticket"} />
+          <div className={styles.container_header_button}>
+            <Btn disabled={isDisabledBt}>Confirmar asistencia</Btn>
+            <Btn disabled={isDisabledBt}>Editar datos</Btn>
+          </div>
+        </div>
+        <h2>Informacion del ticket</h2>
         <table className={styles.table}>
           <thead>
             <tr>

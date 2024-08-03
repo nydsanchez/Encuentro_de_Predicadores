@@ -4,31 +4,33 @@ import styles from "./Smart.module.css";
 import Btn from "../button/Buttons";
 
 function ActivityOp({
-  onPeopleClick,
+  // onPeopleClick,onTicketClick,
   onChurchClick,
-  onTicketClick,
+
   onPeopleTicketClick,
 
   isChurchDisabled,
-  isPeopleDisabled,
-  isTicketDisabled,
+  // isPeopleDisabled,
+  // isTicketDisabled,
   isPeopleTicketDisabled,
 }) {
   return (
     <div className={styles.band}>
       <div className={styles.crud}>
-        <Btn onClick={onPeopleClick} disabled={isPeopleDisabled}>
-          Registro de Persona
-        </Btn>
+        {" "}
         <Btn onClick={onChurchClick} disabled={isChurchDisabled}>
           Registro de Congregación
-        </Btn>
-        <Btn onClick={onTicketClick} disabled={isTicketDisabled}>
-          Registro de Ticket
         </Btn>
         <Btn onClick={onPeopleTicketClick} disabled={isPeopleTicketDisabled}>
           Alta de Persona y ticket
         </Btn>
+        {/* <Btn onClick={onTicketClick} disabled={isTicketDisabled}>
+          Registro de Ticket
+        </Btn>
+        
+        <Btn onClick={onPeopleClick} disabled={isPeopleDisabled}>
+          Registro de Persona
+        </Btn> */}
       </div>
     </div>
   );

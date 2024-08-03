@@ -9,19 +9,19 @@
   border-right: 1px solid gainsboro;
 }
 .menuprincipal > ul {
+  list-style: none;
   display: flex;
   flex-flow: column;
   gap: 1rem;
-  list-style: none;
 }
 
-nav a:link,
-nav a:visited {
+.menuprincipal a:link,
+.menuprincipal a:visited {
   text-decoration: none;
   color: var(--color-text);
 }
 
-nav a:hover {
+.menuprincipal a:hover {
   color: var(--bg-color-active);
 }
 .iconosMenu {
@@ -47,4 +47,8 @@ nav a:hover {
 .submenu__background:hover {
   background-color: var(--bg-color-active);
   color: #fff;
+}
+
+.menuprincipal a:global(.active) {
+  color: var(--bg-color-active);
 }
