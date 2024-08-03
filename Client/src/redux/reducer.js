@@ -4,6 +4,7 @@ import {
   RETRIEVE_DATA,
   SEARCH,
   DELETE_DATA,
+  UPDATE_DATA,
 } from "./actions-types";
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
     ticket: [],
     person: [],
   },
+
   error: null,
 };
 
@@ -38,6 +40,21 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         data: { ...state.data, [entity]: data },
+        error: null,
+      };
+    }
+
+    case UPDATE_DATA: {
+      // ActualizaC el registro existente
+      const { entity, id, data } = payload;
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [entity]: state.data[entity].map((item) =>
+            item.id === id ? data : item
+          ),
+        },
         error: null,
       };
     }

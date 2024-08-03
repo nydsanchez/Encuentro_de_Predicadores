@@ -1,20 +1,22 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createRecord } from "../../redux/actions";
+import { updateData } from "../../redux/actions";
 import PropTypes from "prop-types";
 import MaskedInput from "react-text-mask";
 import validation from "../../js/validationChurchForm";
 import styles from "./form.module.css";
 
-export default function Church({ onClose }) {
+export default function ChurchDetails({ onClose, church }) {
   const dispatch = useDispatch();
   const ERROR = useSelector((state) => state.error);
 
+  const [isEditMode, setIsEditMode] = useState(false);
+
   const [newData, setNewData] = useState({
-    name: "",
-    state: "",
-    address: "",
-    phone: "",
+    name: church ? church.church_name : "",
+    state: church ? church.church_state : "",
+    address: church ? church.church_address : "",
+    phone: church ? church.church_phone : "",
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -23,11 +25,14 @@ export default function Church({ onClose }) {
   useEffect(() => {
     if (isSubmitted) {
       alert(
-        ERROR ? `Error: ${ERROR}` : "Congregación registrada exitosamente!"
+        ERROR ? `Error: ${ERROR}` : "Congregación actualizada exitosamente!"
       );
       setIsSubmitted(false);
+      if (!ERROR) {
+        onClose(); // Cierra el modal después de la actualización exitosa si no hay errores
+      }
     }
-  }, [ERROR, isSubmitted]);
+  }, [ERROR, isSubmitted, onClose]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,33 +40,43 @@ export default function Church({ onClose }) {
     setErrors(validation({ ...newData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleUpdate = (e) => {
     e.preventDefault();
     const validationErrors = validation(newData);
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
-      dispatch(createRecord("church", newData));
-      setIsSubmitted(true);
-      handleClean();
+    if (isEditMode && Object.keys(validationErrors).length === 0) {
+      if (church && church.id) {
+        dispatch(updateData("churches", church.id, newData));
+        setIsSubmitted(true);
+      } else {
+        console.error("Error: ID de la iglesia no definido.");
+        alert("Error al actualizar: ID de la iglesia no definido.");
+      }
     }
+  };
+
+  const handleEditToggle = () => {
+    setIsEditMode((prevMode) => !prevMode);
   };
 
   function handleClean() {
     setNewData({
-      name: "",
-      state: "",
-      address: "",
-      phone: "",
+      name: church ? church.church_name : "",
+      state: church ? church.church_state : "",
+      address: church ? church.church_address : "",
+      phone: church ? church.church_phone : "",
     });
     setErrors({});
   }
 
   return (
     <div className={styles.form}>
-      <h2>Registro de Congregaciones</h2>
+      <h2>
+        {isEditMode ? "Editar Congregación" : "Detalles de la Congregación"}
+      </h2>
       <button onClick={onClose}>X</button>
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className={styles.section}>
           <div className={styles.miembros_info_personal}>
             <label htmlFor="name">Nombre de la congregación:</label>
@@ -72,7 +87,8 @@ export default function Church({ onClose }) {
               value={newData.name}
               onChange={handleChange}
               placeholder="IDC ..."
-            />{" "}
+              disabled={!isEditMode}
+            />
             {errors.name && <p className={styles.error}>{errors.name}</p>}
           </div>
           <div className={styles.miembros_info_personal}>
@@ -82,6 +98,7 @@ export default function Church({ onClose }) {
               id="state"
               value={newData.state}
               onChange={handleChange}
+              disabled={!isEditMode}
             >
               <option value="">Seleccione una opción</option>
               <option value="Boaco">Boaco</option>
@@ -114,6 +131,7 @@ export default function Church({ onClose }) {
               id="address"
               value={newData.address}
               onChange={handleChange}
+              disabled={!isEditMode}
             />
           </div>
 
@@ -143,27 +161,45 @@ export default function Church({ onClose }) {
               name="phone"
               id="phone"
               placeholder="(505)-9999-9999"
+              disabled={!isEditMode}
             />
           </div>
         </div>
 
         <div className={styles.section_buttons}>
-          <button type="submit" className={styles.button_main}>
-            Guardar
-          </button>
-          <button
-            type="button"
-            className={styles.button_sec}
-            onClick={handleClean}
-          >
-            Borrar datos
-          </button>
+          {isEditMode ? (
+            <>
+              <button
+                type="button"
+                className={styles.button_main}
+                onClick={handleUpdate}
+              >
+                Actualizar
+              </button>
+              <button
+                type="button"
+                className={styles.button_sec}
+                onClick={handleClean}
+              >
+                Borrar
+              </button>
+            </>
+          ) : (
+            <button
+              type="button"
+              className={styles.button_main}
+              onClick={handleEditToggle}
+            >
+              Editar
+            </button>
+          )}
         </div>
       </form>
     </div>
   );
 }
 
-Church.propTypes = {
-  onClose: PropTypes.func.isRequired, // onClose debe ser una función y es requerida
+ChurchDetails.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  church: PropTypes.object.isRequired, // church es requerido y debe ser un objeto
 };

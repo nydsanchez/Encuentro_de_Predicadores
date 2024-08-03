@@ -65,7 +65,7 @@ export default function PeopleTicket({ onClose }) {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      dispatch(createRecord("people", newData));
+      dispatch(createRecord("person-ticket", newData));
       setIsSubmitted(true);
 
       handleClean();

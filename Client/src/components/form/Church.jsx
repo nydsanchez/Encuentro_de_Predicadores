@@ -41,7 +41,7 @@ export default function Church({ onClose }) {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      dispatch(createRecord("church", newData));
+      dispatch(createRecord("churches", newData));
       setIsSubmitted(true);
       handleClean();
     }

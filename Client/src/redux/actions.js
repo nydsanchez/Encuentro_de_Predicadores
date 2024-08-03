@@ -45,16 +45,13 @@ export const retrieveData = (entity) => {
   };
 };
 
-export const updateData = (entity, newData) => {
+export const updateData = (entity, id, newData) => {
   return async (dispatch) => {
     try {
-      const response = await axios.put(
-        `${URL}/${entity}/${newData.id}`,
-        newData
-      );
+      const response = await axios.put(`${URL}/${entity}/${id}`, newData);
       dispatch({
         type: UPDATE_DATA,
-        payload: { entity, data: response.data },
+        payload: { entity, data: response.data, id },
         success: true,
       });
     } catch (error) {

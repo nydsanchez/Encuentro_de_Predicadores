@@ -2,24 +2,27 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { retrieveData, deleteData } from "../../redux/actions";
 
-import { FaPencil, FaEye, FaEraser } from "react-icons/fa6";
+import { FaEye, FaEraser } from "react-icons/fa6";
 
 import styles from "./tablas.module.css";
 import Pagination from "../pagination/Pagination";
+import ChurchDetails from "../form/ChurchDetail";
 
 function ChurchesTable() {
   const dispatch = useDispatch();
   const churches = useSelector((state) => state.data.churches);
 
+  // Estado local para controlar el modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedChurch, setSelectedChurch] = useState(null);
+
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 5;
 
-  const handleEdit = (index) => {
-    console.log("Edit item at index:", index);
-  };
-
-  const handleViewDetails = (index) => {
-    console.log("View details of item at index:", index);
+  const handleViewDetails = (id) => {
+    const churchToView = churches.find((church) => church.id === id);
+    setSelectedChurch(churchToView);
+    setIsModalOpen(true); // Abre el mod
   };
 
   const handleDelete = (id) => {
@@ -71,10 +74,7 @@ function ChurchesTable() {
                 <td>{church.church_name}</td>
                 <td>{church.church_state}</td>
                 <td className={styles.actions}>
-                  <button onClick={() => handleEdit(index)}>
-                    <FaPencil className={styles.icon_mobile} />
-                  </button>
-                  <button onClick={() => handleViewDetails(index)}>
+                  <button onClick={() => handleViewDetails(church.id)}>
                     <FaEye className={styles.icon_mobile} />
                   </button>
                   <button onClick={() => handleDelete(church.id)}>
@@ -86,6 +86,20 @@ function ChurchesTable() {
           </tbody>
         </table>
       </div>
+      {isModalOpen && (
+        <>
+          <div
+            className={styles.overlay}
+            onClick={() => setIsModalOpen(false)}
+          />
+          <div className={styles.modal}>
+            <ChurchDetails
+              onClose={() => setIsModalOpen(false)}
+              church={selectedChurch}
+            />
+          </div>
+        </>
+      )}
     </main>
   );
 }

@@ -39,7 +39,7 @@ export default function Ticket({ onClose }) {
     e.preventDefault();
     const validationErrors = validation(newData);
     setErrors(validationErrors);
-    dispatch(createRecord("ticket", newData));
+    dispatch(createRecord("tickets", newData));
     setIsSubmitted(true);
     handleClean();
   };
