@@ -77,25 +77,17 @@ const updateTicket = async (req, res) => {
     // Verificar si la persona existe
     let personCheck = await People.findByPk(person_id);
     if (!personCheck) {
-      // Si la persona no existe, crearla
-      personCheck = await People.create({
-        id: person_id, // Asegúrate de que el campo person_id en tu base de datos se llama 'id'
-        name,
-        state,
-        address,
-        phone,
-        genre,
-        ChurchId,
-      });
+      return res
+        .status(404)
+        .json({ message: "Esta persona no ha sido registrada" });
     }
 
     // Asociar el ticket con la nueva persona
     await ticket.setPerson(personCheck);
 
     // Actualizar el estado del ticket si es necesario
-    if (status_ticket && status_ticket !== ticket.state_ticket) {
-      ticket.state_ticket = status_ticket;
-    }
+
+    ticket.state_ticket = status_ticket;
 
     await ticket.save();
 

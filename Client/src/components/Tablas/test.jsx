@@ -1,20 +1,26 @@
 import { useSelector } from "react-redux";
+import { useState } from "react";
 import styles from "./tablas.module.css";
 import Search from "../search/Search";
 import Btn from "../button/Buttons";
-import { useState, useEffect } from "react";
+import TicketUpdate from "../tab/TicketUpdate";
 
 function TestComponent() {
   const ticket = useSelector((state) => state.search.ticket);
   const ERROR = useSelector((state) => state.error);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const [isDisabledBt, setIsDisabledBt] = useState(true);
+  const handleAttendance = () => {
+    console.log("estoy confirmando");
+  };
+  const handleOpenModal = () => {
+    setIsOpen(!isOpen);
+  };
 
-  useEffect(() => {
-    if (ERROR && ticket.length > 0) {
-      setIsDisabledBt(true);
-    }
-  }, [ticket, ERROR]);
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
+
   let content;
 
   if (ERROR) {
@@ -46,8 +52,8 @@ function TestComponent() {
         <div className={styles.container_header}>
           <Search entity={"ticket"} />
           <div className={styles.container_header_button}>
-            <Btn disabled={isDisabledBt}>Confirmar asistencia</Btn>
-            <Btn disabled={isDisabledBt}>Editar datos</Btn>
+            <Btn onClick={handleAttendance}>Confirmar asistencia</Btn>
+            <Btn onClick={handleOpenModal}>Editar datos</Btn>
           </div>
         </div>
         <h2>Informacion del ticket</h2>
@@ -63,6 +69,11 @@ function TestComponent() {
           {content}
         </table>
       </div>
+      {isOpen && (
+        <div>
+          <TicketUpdate onClose={handleCloseModal} ticket={ticket} />
+        </div>
+      )}
     </div>
   );
 }

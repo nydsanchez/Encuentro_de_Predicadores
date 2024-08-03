@@ -1,10 +1,11 @@
-/* .tab-buttons {
+/*
+.tab_buttons {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
-.tab-buttons button {
+.tab_buttons button {
   flex: 1;
   padding: 10px;
   border: none;
@@ -13,62 +14,68 @@
   transition: background-color 0.3s;
 }
 
-.tab-buttons button.active {
+.tab_buttons button.active {
   background-color: #007bff;
   color: white;
 }
 
-.tab-buttons button:hover {
+.tab_buttons button:hover {
   background-color: #007bff;
   color: white;
 }
 
-.tab-content {
+.tab_content {
   border: 1px solid #ddd;
   padding: 20px;
   border-radius: 4px;
 }
-.tab-item {
+.tab_item {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   margin-bottom: 10px;
   background-color: #f9f9f9;
-} */
-.tab-buttons {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: -1px; /* Solapamiento para integrar las pestañas al contenedor */
-  border-bottom: 2px solid #ddd; /* Línea base común */
 }
 
-.tab-buttons button {
+ con solapamiento */
+.tab_buttons {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 5rem;
+  margin-bottom: -1px;
+  border-bottom: 2px solid #ddd;
+}
+
+.tab_buttons button {
   padding: 10px 20px;
   border: 2px solid transparent;
-  border-bottom: none; /* Sin borde inferior para solapar el contenido */
+  border-bottom: none;
   background-color: #f9f9f9;
   cursor: pointer;
   transition: background-color 0.3s, border-color 0.3s;
-  border-radius: 5px 5px 0 0; /* Borde superior redondeado */
+  border-radius: 5px 5px 0 0;
 }
 
-.tab-buttons button:not(:last-child) {
-  margin-right: 5px; /* Espacio entre pestañas */
+.tab_buttons button:not(:last-child) {
+  margin-right: 5px;
 }
-
-.tab-buttons button.active {
-  background-color: white; /* Misma que el contenido */
-  border-color: #ddd #ddd white; /* Destaca la pestaña activa */
+/*
+.tab_buttons button.active {
+  background: blue;
+  /* border-color: #ddd #ddd white; 
+  border-color: #f9f9f9;
+  color: orangered;
   font-weight: bold;
 }
-
-.tab-buttons button:hover {
-  background-color: #e9e9e9; /* Color de hover */
+*/
+.tab_buttons button:hover {
+  background-color: #e9e9e9;
 }
 
-.tab-content {
+.tab_content {
   border: 2px solid #ddd;
-  border-radius: 0 5px 5px 5px; /* Redondeado sólo en la parte inferior */
-  padding: 20px;
-  background-color: white;
+  border-radius: 0 5px 5px 5px;
+  padding: 2rem;
+  margin: 0 1.5rem 0 0;
+  background-color: #f9f9f9;
 }

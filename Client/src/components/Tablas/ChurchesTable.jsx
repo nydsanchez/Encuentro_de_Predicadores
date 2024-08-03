@@ -53,8 +53,8 @@ function ChurchesTable() {
 
   return (
     <main className={styles.container}>
+      <h2 className={styles.subtitle}>Lista de Congregaciones</h2>
       <div className={styles.container_table}>
-        <h2 className={styles.subtitle}>Lista de Congregaciones</h2>
         <Pagination
           currentPage={currentPage}
           totalPages={Math.ceil(churches.length / recordsPerPage)}

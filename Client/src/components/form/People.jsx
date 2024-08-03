@@ -9,9 +9,8 @@ import SelectChurch from "../select/selectChurch";
 import validation from "../../js/validationPeopleForm";
 import styles from "./form.module.css";
 
-export default function People({ onClose }) {
+export default function People({ onClose, onNewPersonCreated }) {
   const dispatch = useDispatch();
-
   const ERROR = useSelector((state) => state.error);
 
   const [newData, setNewData] = useState({
@@ -36,9 +35,13 @@ export default function People({ onClose }) {
       alert(
         ERROR ? `Error: ${ERROR}` : "Congregación registrada exitosamente!"
       );
+      if (!ERROR) {
+        onNewPersonCreated(newData); // Llama a la función de callback
+        handleClean(); // Limpia el formulario después de la creación
+      }
       setIsSubmitted(false);
     }
-  }, [ERROR, isSubmitted]);
+  }, [ERROR, isSubmitted, onNewPersonCreated, newData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -246,4 +249,5 @@ export default function People({ onClose }) {
 }
 People.propTypes = {
   onClose: PropTypes.func.isRequired, // onClose debe ser una función y es requerida
+  onNewPersonCreated: PropTypes.func.isRequired,
 };

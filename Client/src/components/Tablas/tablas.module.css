@@ -9,6 +9,7 @@
   flex-wrap: wrap;
   padding: 2rem;
   width: 100%;
+  margin-bottom: 2rem;
 }
 .container_header_button {
   display: flex;

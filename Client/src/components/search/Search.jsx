@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { search } from "../../redux/actions";
+import PropTypes from "prop-types";
+
 import styles from "./Search.module.css";
 
 const Search = ({ entity }) => {
@@ -26,6 +28,10 @@ const Search = ({ entity }) => {
       <button type="submit">🔍</button>
     </form>
   );
+};
+
+Search.propTypes = {
+  entity: PropTypes.string.isRequired,
 };
 
 export default Search;
