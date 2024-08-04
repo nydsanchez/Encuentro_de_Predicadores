@@ -1,4 +1,3 @@
-/* Agrega estos estilos en tu archivo CSS correspondiente
 .modal {
   position: fixed;
   top: 50%;
@@ -19,4 +18,4 @@
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
-} */
+}
