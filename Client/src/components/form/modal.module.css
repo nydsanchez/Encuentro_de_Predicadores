@@ -1,0 +1,23 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 20rem;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(36, 42, 46, 80%);
+}
+
+/* .form_modal {
+  background: var(--color-modal--0);
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  position: relative; 
+  left: 80%;
+  width: 20vw;
+  height: 100vh;
+  padding: 20px;
+  gap: 2rem;
+} */

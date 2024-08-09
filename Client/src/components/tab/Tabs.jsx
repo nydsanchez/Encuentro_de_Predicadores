@@ -12,7 +12,7 @@ function Tabs() {
     setActiveTab(tab);
   };
   return (
-    <div>
+    <div className={styles.container_tab}>
       <div className={styles.tab_buttons}>
         <button
           className={activeTab === "personas" ? "active" : ""}

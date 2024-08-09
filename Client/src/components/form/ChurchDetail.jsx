@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import MaskedInput from "react-text-mask";
 import validation from "../../js/validationChurchForm";
 import styles from "./form.module.css";
+import modal from "./modal.module.css";
 
 export default function ChurchDetails({ onClose, church }) {
   const dispatch = useDispatch();
@@ -71,130 +72,132 @@ export default function ChurchDetails({ onClose, church }) {
   }
 
   return (
-    <div className={styles.form}>
-      <h2>
-        {isEditMode ? "Editar Congregación" : "Detalles de la Congregación"}
-      </h2>
-      <button onClick={onClose}>X</button>
-      <form>
-        <div className={styles.section}>
-          <div className={styles.miembros_info_personal}>
-            <label htmlFor="name">Nombre de la congregación:</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              value={newData.name}
-              onChange={handleChange}
-              placeholder="IDC ..."
-              disabled={!isEditMode}
-            />
-            {errors.name && <p className={styles.error}>{errors.name}</p>}
+    <div className={modal.modalOverlay}>
+      <div className={styles.form}>
+        <h2>
+          {isEditMode ? "Editar Congregación" : "Detalles de la Congregación"}
+        </h2>
+        <button onClick={onClose}>X</button>
+        <form className={modal.form_modal}>
+          <div className={styles.section}>
+            <div className={styles.miembros_info_personal}>
+              <label htmlFor="name">Nombre de la congregación:</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                value={newData.name}
+                onChange={handleChange}
+                placeholder="IDC ..."
+                disabled={!isEditMode}
+              />
+              {errors.name && <p className={styles.error}>{errors.name}</p>}
+            </div>
+            <div className={styles.miembros_info_personal}>
+              <label htmlFor="state">Departamento:</label>
+              <select
+                name="state"
+                id="state"
+                value={newData.state}
+                onChange={handleChange}
+                disabled={!isEditMode}
+              >
+                <option value="">Seleccione una opción</option>
+                <option value="Boaco">Boaco</option>
+                <option value="Carazo">Carazo</option>
+                <option value="Chinandega">Chinandega</option>
+                <option value="Chontales">Chontales</option>
+                <option value="Esteli">Estelí</option>
+                <option value="Granada">Granada</option>
+                <option value="Jinotega">Jinotega</option>
+                <option value="Leon">León</option>
+                <option value="Madriz">Madriz</option>
+                <option value="Managua">Managua</option>
+                <option value="Masaya">Masaya</option>
+                <option value="Matagalpa">Matagalpa</option>
+                <option value="Nueva Segovia">Nueva Segovia</option>
+                <option value="Rivas">Rivas</option>
+                <option value="Rio San Juan">Río San Juan</option>
+                <option value="RACN">Región Autonoma del Caribe Norte</option>
+                <option value="RACS">Región Autonoma del Caribe Sur</option>
+              </select>
+              {errors.state && <p className={styles.error}>{errors.state}</p>}
+            </div>
           </div>
-          <div className={styles.miembros_info_personal}>
-            <label htmlFor="state">Departamento:</label>
-            <select
-              name="state"
-              id="state"
-              value={newData.state}
-              onChange={handleChange}
-              disabled={!isEditMode}
-            >
-              <option value="">Seleccione una opción</option>
-              <option value="Boaco">Boaco</option>
-              <option value="Carazo">Carazo</option>
-              <option value="Chinandega">Chinandega</option>
-              <option value="Chontales">Chontales</option>
-              <option value="Esteli">Estelí</option>
-              <option value="Granada">Granada</option>
-              <option value="Jinotega">Jinotega</option>
-              <option value="Leon">León</option>
-              <option value="Madriz">Madriz</option>
-              <option value="Managua">Managua</option>
-              <option value="Masaya">Masaya</option>
-              <option value="Matagalpa">Matagalpa</option>
-              <option value="Nueva Segovia">Nueva Segovia</option>
-              <option value="Rivas">Rivas</option>
-              <option value="Rio San Juan">Río San Juan</option>
-              <option value="RACN">Región Autonoma del Caribe Norte</option>
-              <option value="RACS">Región Autonoma del Caribe Sur</option>
-            </select>
-            {errors.state && <p className={styles.error}>{errors.state}</p>}
-          </div>
-        </div>
-        <div className={styles.section}>
-          <div className={styles.miembros_info_personal}>
-            <label htmlFor="address">Dirección de la congregación</label>
-            <input
-              type="text"
-              name="address"
-              id="address"
-              value={newData.address}
-              onChange={handleChange}
-              disabled={!isEditMode}
-            />
+          <div className={styles.section}>
+            <div className={styles.miembros_info_personal}>
+              <label htmlFor="address">Dirección de la congregación</label>
+              <input
+                type="text"
+                name="address"
+                id="address"
+                value={newData.address}
+                onChange={handleChange}
+                disabled={!isEditMode}
+              />
+            </div>
+
+            <div className={styles.miembros_info_personal}>
+              <label htmlFor="phone">Teléfono de la congregación</label>
+              <MaskedInput
+                mask={[
+                  "(",
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  ")",
+                  "-",
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  "-",
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                ]}
+                guide={false}
+                value={newData.phone || ""}
+                onChange={handleChange}
+                name="phone"
+                id="phone"
+                placeholder="(505)-9999-9999"
+                disabled={!isEditMode}
+              />
+            </div>
           </div>
 
-          <div className={styles.miembros_info_personal}>
-            <label htmlFor="phone">Teléfono de la congregación</label>
-            <MaskedInput
-              mask={[
-                "(",
-                /\d/,
-                /\d/,
-                /\d/,
-                ")",
-                "-",
-                /\d/,
-                /\d/,
-                /\d/,
-                /\d/,
-                "-",
-                /\d/,
-                /\d/,
-                /\d/,
-                /\d/,
-              ]}
-              guide={false}
-              value={newData.phone || ""}
-              onChange={handleChange}
-              name="phone"
-              id="phone"
-              placeholder="(505)-9999-9999"
-              disabled={!isEditMode}
-            />
-          </div>
-        </div>
-
-        <div className={styles.section_buttons}>
-          {isEditMode ? (
-            <>
+          <div className={styles.section_buttons}>
+            {isEditMode ? (
+              <>
+                <button
+                  type="button"
+                  className={styles.button_main}
+                  onClick={handleUpdate}
+                >
+                  Actualizar
+                </button>
+                <button
+                  type="button"
+                  className={styles.button_sec}
+                  onClick={handleClean}
+                >
+                  Borrar
+                </button>
+              </>
+            ) : (
               <button
                 type="button"
                 className={styles.button_main}
-                onClick={handleUpdate}
+                onClick={handleEditToggle}
               >
-                Actualizar
+                Editar
               </button>
-              <button
-                type="button"
-                className={styles.button_sec}
-                onClick={handleClean}
-              >
-                Borrar
-              </button>
-            </>
-          ) : (
-            <button
-              type="button"
-              className={styles.button_main}
-              onClick={handleEditToggle}
-            >
-              Editar
-            </button>
-          )}
-        </div>
-      </form>
+            )}
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

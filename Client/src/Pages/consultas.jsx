@@ -3,12 +3,12 @@ import Menu from "../components/menu/Menu";
 
 import Footer from "../components/footer/Footer";
 
-import styles from "../css/nuevo.module.css";
+import styles from "../css/consulta.module.css";
 import Tabs from "../components/tab/Tabs";
 
 function Consultas() {
   return (
-    <div className={styles.page_new}>
+    <div className={styles.page_query}>
       <header className={styles.page_new_header}>
         <Header />
       </header>

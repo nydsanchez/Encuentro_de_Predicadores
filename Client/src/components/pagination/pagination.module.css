@@ -9,8 +9,11 @@
 
 .pageItem button {
   color: var(--color-title);
+  font-size: 1.2rem;
+  border: none;
   padding: 0.3rem 0.5rem;
   text-align: center;
   cursor: pointer;
   margin: auto;
+  z-index: 0;
 }

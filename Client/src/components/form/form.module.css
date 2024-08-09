@@ -2,10 +2,9 @@
   display: flex;
   flex-flow: column;
   justify-content: center;
-
   background: var(--color-sec);
   position: relative;
-  margin: 2rem auto;
+  margin: 18rem;
   width: 70rem;
   height: auto;
   padding: 2rem;

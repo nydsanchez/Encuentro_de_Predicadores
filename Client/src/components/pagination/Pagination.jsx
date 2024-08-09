@@ -21,7 +21,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
           <li key={number} className={styles.pageItem}>
             <button
               onClick={() => onPageChange(number)}
-              className={`page-link${currentPage === number ? " active" : ""}`}
+              className={`page-link${currentPage === number ? "active" : ""}`}
             >
               {number}
             </button>
